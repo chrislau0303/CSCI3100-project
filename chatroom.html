@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8"/>
+	<title>Twitter Chat Room</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+	<link rel="stylesheet" href="chatroom.css">
+</head>
+<body>
+	<button class = "chatbtn">
+		<i class = "fas fa-comment-dots"></i>
+	</button>
+	<div class="popupchat">
+	<div class="row justify-content-center h-100">
+	<div class="chat-wrapper">
+		<div class = "card-header">
+			<button class = "addchatgrpbtn">
+				<i class = "material-icons">add</i>
+			</button>
+		</div>
+			<div class="card-body contacts_body">
+				<ui class="contacts">
+				<li class="active">
+					<button class="d-flex bd-highlight">
+						<div class="img_cont">
+							<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+						</div>
+						<div class="user_info">
+							<span>Khalid</span>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button class="d-flex bd-highlight">
+						<div class="img_cont">
+							<img src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg" class="rounded-circle user_img">
+							
+						</div>
+						<div class="user_info">
+							<span>Taherah Big</span>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button class="d-flex bd-highlight">
+						<div class="img_cont">
+							<img src="https://i.pinimg.com/originals/ac/b9/90/acb990190ca1ddbb9b20db303375bb58.jpg" class="rounded-circle user_img">
+						</div>
+						<div class="user_info">
+							<span>Sami Rafi</span>
+						
+						</div>
+					</button>
+				</li>
+				<li>
+					<button class ="d-flex bd-highlight">
+						<div class="img_cont">
+							<img src="http://profilepicturesdp.com/wp-content/uploads/2018/07/sweet-girl-profile-pictures-9.jpg" class="rounded-circle user_img">
+						
+						</div>
+						<div class="user_info">
+							<span>Nargis Hawa</span>
+						
+						</div>
+					</button>
+				</li>
+				<li>
+					<button class ="d-flex bd-highlight">
+						<div class="img_cont">
+							<img src="https://static.turbosquid.com/Preview/001214/650/2V/boy-cartoon-3D-model_D.jpg" class="rounded-circle user_img">
+					
+						</div>
+						<div class="user_info">
+							<span>Rashid Samim</span>
+						</div>
+					</button>
+				</li>
+				</ui>
+			</div>
+		
+		</div>
+	
+		<div class="card">
+			<div class="chat-header">
+				<h2>Rettiwt Chat Room</h2>
+			</div>
+			<div class="chat-body">
+            	<div class="chat-message">
+				<div class="chat-profile-pic">
+					<img src="https://via.placeholder.com/50x50.png?text=JD" alt="John Doe">
+				</div>
+				<div class="chat-text">
+					<p class="chat-username">John Doe</p>
+					<p class="chat-message-text">Hello, how are you doing?</p>
+					<p class="chat-time">12:00 PM | Mar 23</p>
+				</div>
+				</div>
+            	<div class="chat-message">
+				<div class="chat-profile-pic">
+					<img src="https://via.placeholder.com/50x50.png?text=DM" alt="Double May">
+				</div>
+				<div class="chat-text">
+					<p class="chat-username">Double May</p>
+					<p class="chat-message-text">Playing games!</p>
+					<p class="chat-time">1:00 PM | Mar 23</p>
+				</div>
+				</div>
+				<div class="chat-message">
+				<div class="chat-profile-pic">
+					<img src="https://via.placeholder.com/50x50.png?text=AH" alt="Alex H">
+				</div>
+				<div class="chat-text">
+					<p class="chat-username">Alex H</p>
+					<p class="chat-message-text">Hey guys, what's up?</p>
+					<p class="chat-time">2:00 PM | Mar 23</p>
+				</div>
+				</div>
+				<div class="chat-message">
+				<div class="chat-profile-pic">
+					<img src="https://via.placeholder.com/50x50.png?text=JE" alt="Jane E">
+				</div>
+				<div class="chat-text">
+					<p class="chat-username">Jane E</p>
+					<p class="chat-message-text">Nothing much, just chilling</p>
+					<p class="chat-time">3:00 PM | Mar 23</p>
+				</div>
+			</div>
+			</div>
+			<!-- Add more chat messages here -->
+		
+			<div class="chat-footer">
+				<input type="text">
+				<button id = "emoji-button" >&#128578;</button>
+				<button class = "submit"> <i class = "material-icons">send</i></button>
+				
+				</div>
+			</div>
+		</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
