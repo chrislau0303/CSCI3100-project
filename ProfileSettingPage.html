@@ -272,8 +272,10 @@
 		<script> 
             let btnClear = document.getElementById('Clear');
             let inputs = document.querySelectorAll('input');
+            let inputArea = document.querySelectorAll('textarea');
             btnClear.addEventListener('click', () => {
                 inputs.forEach(input =>  input.value = '');
+                inputArea.forEach(input => input.value = '');
             });
 </script> 
 </body>
