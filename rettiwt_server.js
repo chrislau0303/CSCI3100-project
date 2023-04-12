@@ -4,16 +4,6 @@ const db = require('./public/db.js')
 
 const app = express()
 
-// search example
-// var sql = 'SELECT * FROM rettiwtUser'
-// db.query(sql, function (err, result) {
-//     if (err) {
-//         console.log('[SELECT ERROR] - ', err.message)
-//         return
-//     }
-//     console.log(result)
-// })
-
 // setup static and middleware
 app.use(express.static('./public'))
 // parse form data
