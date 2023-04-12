@@ -24,7 +24,6 @@ app.post('/register', (req, res)=> {
         }
         console.log(result)
     })
-    // db.end()
 
     res.sendFile(path.resolve(__dirname, './public/homepage.html'))
 })
@@ -79,6 +78,8 @@ app.get('/homepage', (req, res) => {
 app.all('*', (req, res) => {
     res.status(404).send('Not Found')
 })
+
+db.end()
 
 app.listen(3000, ()=>{
     console.log('server is listening on port 3000...')
