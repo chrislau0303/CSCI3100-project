@@ -30,10 +30,11 @@ body {
     
 }
 .coverphoto img{
-    width: 1000px ;
+    width: 80% ;
     border-radius:10px;
     margin-bottom: 20px ;
-
+    position: relative;
+    left: 100px;
 
 }
 
