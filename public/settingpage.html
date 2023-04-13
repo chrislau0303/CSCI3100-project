@@ -14,7 +14,7 @@
     
     .container {
         border-radius: 20px;
-        padding:20 px;
+        padding:30 px;
         max-width: 1200px;
         margin: 0 auto;
         display: flex;
@@ -222,12 +222,13 @@
         </div>
         <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; padding: 10px 20px; font-size: 16px; 
         font-weight: bold;width: 50px; height:50px; cursor: pointer;margin-left: 220px; margin-top: -40px; margin-bottom: 20px; position: absolute">+</button>
+        <div style="margin-left: 170px; font-size: 40px; margin-top: 20px" id="Username">Michael Choi</div>
           <div class="profile-info">
             <hr />
             <form action="" class="form-horizontal">
               <div class="flex hstack">
                 <label class="changeItems">Bio</label>
-                <textarea style="margin-left: 120px; width: 500px; height: 50px"></textarea>
+                <textarea style="margin-left: 123px; width: 500px; height: 50px" id = "inputBio"></textarea>
                   <!-- <input style="margin-left: 120px; width: 200px; height: 30px" type="text" class="inputChange" id="inputBio" > -->
               </div>
         </form>
@@ -256,7 +257,7 @@
         <form action="" class="form-horizontal">
             <div class="flex hstack">
               <label class="changeItems">Reset Password</label>
-                <input type="password" style="margin-left: 28px" class="inputChange" id="inputUsername">
+                <input type="password" style="margin-left: 30px" class="inputChange" id="inputResetPassword">
             </div>
       </form>
           </div>
@@ -271,9 +272,49 @@
     </div>
 		<script> 
             let btnClear = document.getElementById('Clear');
+            let btnConfirm = document.getElementById('Confirm');
             let inputs = document.querySelectorAll('input');
+            let inputArea = document.querySelectorAll('textarea');
+            let changeUsername = document.getElementById('Username');
+            let inputUsername = document.getElementById("inputUsername");
+            let inputResetPassword = document.getElementById("inputResetPassword");
+            let storeBio = "";
+            let storePassword = "";
+            let storeUserName = "";
             btnClear.addEventListener('click', () => {
+                console.log(123123)
                 inputs.forEach(input =>  input.value = '');
+                inputArea.forEach(input => input.value = '');
+            });
+            btnConfirm.addEventListener('click', () => {
+                console.log("It's empty")
+                if (inputBio.value != ""){
+                    storeBio = inputBio.value;
+                    inputArea.forEach(input => input.value = '');
+                }
+                if (inputUsername.value != ""){
+                    var userNameChange = inputUsername.value;
+                    changeUsername.innerHTML= userNameChange;
+                    storeUserName = userNameChange;
+                    inputUsername.value = "";
+                }
+                if (inputResetPassword.value != ""){
+                    var changePassword = inputResetPassword.value;
+   if (changePassword.length < 8) {
+        alert('Password must be at least 8 characters long');
+    }
+    else if (!/\d/.test(changePassword) || /^\d+$/.test(changePassword)) {
+        alert('Password must contain both characters and digits');
+    }
+    else {
+            let confirmPassword = prompt("Please enter the password to confirm it.");
+            if (confirmPassword == changePassword){
+                  storePassword = inputResetPassword;
+                  inputResetPassword.value = "";
+                }
+            else alert('Password input wrongly!');
+    }
+                }
             });
 </script> 
 </body>
