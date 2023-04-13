@@ -18,7 +18,21 @@ closeModalButton.addEventListener('click', () => {
     popupcreatepost.style.display = 'none';
     
 });
-
+function removeUser1(){
+    document.getElementById('table').deleteRow(1);
+}
+function removeUser2(){
+    document.getElementById('table').deleteRow(2);
+}
+function removeUser3(){
+    document.getElementById('table').deleteRow(3);
+}
+function removeUser4(){
+    document.getElementById('table').deleteRow(4);
+}
+function removeUser5(){
+    document.getElementById('table').deleteRow(5);
+}
 
 editbtn.addEventListener('click', () => {
     popupeditpost.classList.toggle('show');
