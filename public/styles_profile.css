@@ -20,7 +20,7 @@ body {
     height:100%;
     width: 20%;
     margin-right: 50px;
-    
+    z-index : 10;
 }
 .coverphoto {
    
@@ -153,46 +153,8 @@ body {
 }
 
 
-#action_menu_btn{
-    background-color: transparent;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.action_menu{
-    z-index: 1;
-    position: absolute;
-    padding: 15px 0;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    border-radius: 15px;
-    top: 30px;
-    right: 15px;
-    display: none;
-}
-.action_menu ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.action_menu ul li{
-    width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 5px;
-}
-.action_menu ul li i{
-    padding-right: 10px;
-
-}
-.action_menu ul li:hover{
-    cursor: pointer;
-    background-color: rgba(0,0,0,0.2);
-}
   
-  .popupcreatepost, .popupeditpost{
+.popupcreatepost{
     right: 40%;
     align-content: center;
     background-color: #192734;
@@ -205,12 +167,24 @@ body {
     justify-content: space-between;
     position: fixed;
     margin: 0 auto;
-
   }
-  .show {
+.show {
     display:flex;
 }
 
+.popupeditpost{
+    left: 40%;
+    background-color: #192734;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    width: 350px;
+    position:fixed;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+}
  /* Dropdown Button */
  .dropbtn {
     background-color: transparent;
@@ -222,7 +196,6 @@ body {
   
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
-
     position: absolute;
     display: inline-block;
     border-radius: 10px;
@@ -237,6 +210,7 @@ body {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 10px;
+    z-index: 99;
   }
   
   /* Links inside the dropdown */
