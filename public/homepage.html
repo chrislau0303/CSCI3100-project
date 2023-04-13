@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
 	<title> Homepage</title>
 	<link rel="stylesheet" href="styles_homepage.css">
-    
+	<script src="https://code.jquery.com/jquery-3.4.1.js"> </script>
 </head>
 <body>
 	<div class="container">
     <div class="sidebar">
             <div class="logo">
-                <img src="logo.png" alt="Logo">
+                <img src="Logo.jpeg" alt="Logo">
             </div>
             <ul>
                 <li><a href="#">New Post+</a></li>
                 <li><a href="homepage.html">Home</a></li>
-                <li><a href="search.html">Search</a></li>
-                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">My Profile</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Sign out</a></li>
             </ul>
@@ -34,9 +34,27 @@
 					<p>This is a sample post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor, risus vel venenatis ultrices, arcu tortor ullamcorper sapien, vitae bibendum nulla turpis vitae erat. Maecenas vestibulum, massa ut feugiat porttitor, massa velit mollis tellus, vel efficitur tellus tellus id nibh.</p>
 				</div>
 				<div class="post-footer">
-					<a href="#">Like</a>
-					<a href="#">Comment</a>
-					<a href="#">Share</a>
+					<div class="heart-btn">
+						<div class="content">
+							<span class="heart"></span>
+							<span class="like">Like</span>
+							<span class="numb"></span>
+						</div>
+					</div>
+					<script>
+						$(document).ready(function(){
+							$(".content").click(function(){
+								$(".content").toggleClass("heart-active")
+								$(".like").toggleClass("heart-active")
+								$(".heart").toggleClass("heart-active")
+								$(".numb").toggleClass("heart-active")
+							});
+						});
+					</script>
+				    <div class="cs">
+					  <a href="#">Comment</a>
+					  <a href="#">Share</a>
+				    </div>
 				</div>
 			</div>
 			<div class="post">
