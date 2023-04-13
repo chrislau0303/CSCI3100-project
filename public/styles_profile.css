@@ -31,9 +31,12 @@ body {
     
 }
 .coverphoto img{
-    width: 1000px ;
+    width: 80% ;
     border-radius:10px;
     margin-bottom: 20px ;
+    position: relative;
+    left:100px;
+    z-index: -1;
 
 
 }
@@ -166,6 +169,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
+    top: 15%;
     margin: 0 auto;
   }
 .show {
@@ -230,3 +234,40 @@ body {
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #e6f4e600;}
+
+  .follow-button {
+    color: #f7fbff;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    background-color: #765ef0;
+    border-color: #3399FF;
+    border-radius: 3px;
+    width: 100px;
+    left: 150px;
+    position: relative;	 
+    cursor: pointer;
+    display:grid;	
+    place-content: center;	
+    box-shadow: 0 8px 5px -5px rgba(0, 0, 0, 0.2);    
+  }
+
+  .loader{
+    pointer-events: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fdfdfd;
+    animation: an1 1s ease infinite;
+
+ }
+
+  @keyframes an1 {
+    0% {
+        transform: rotate(0turn);
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+    
+  }
