@@ -75,10 +75,8 @@ body {
     text-decoration: none;
 }
 
-.sidebar a:hover , a#opencreatepage:hover{
-    text-decoration: none;
+.sidebar a:hover {
     background-color: #0c84d2;
-    color: #ffffff;
 }
 
 .main-content {
@@ -273,3 +271,80 @@ body {
     }
     
   }
+
+.cs{
+	position: relative;
+	
+    top:50px;
+}
+.heart-btn{
+	position: absolute;
+	
+	transform: translate(-50%, -50%);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+
+.content{
+	border: 2px solid #eae2e1;
+	padding: 8px 10px;
+	border-radius: 5px;
+	display: flex;
+	cursor: pointer ;
+	position: relative;
+	top: 63px;
+	right:50px;
+}
+
+.content.heart-active{
+	border-color: #f9b9c4 ;
+	background: #fbd0d8 ;
+}
+.content .heart{
+	height:90px;
+	width: 45px;
+	background: url("img.png") no-repeat;
+	background-position: left;
+	background-size: 2900% ;
+	position: absolute ;
+	top: 50%;
+	left: 21%;
+	transform: translate(-50%, -50%);
+}
+ .heart.heart-active{
+	background-position: right;
+	animation: animate .8s steps(28) 1;
+
+ }
+
+ @keyframes animate {
+	0%{
+		background-position: left;
+	}
+	100%{
+		background-position: right;
+	}
+ }
+.like{
+	margin-left: 10px;
+	font-size: 10px;
+	font-family: 'Montserrat', sans-serif;
+	color: grey;
+}
+
+.like.heart-active{
+	color:black;
+}
+.numb:before{
+	
+	font-size: 10px;
+	font-weight: 600;
+	font-family: sans-serif;
+	color: #9c9496;
+	margin-left: 3px;
+}
+
+.numb.heart-active:before{	
+	color: black;
+}
+
