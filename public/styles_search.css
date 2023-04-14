@@ -14,8 +14,12 @@ body {
 }
 
 .sidebar {
-    width: 10%;
-    margin-right: 30px;
+    position: sticky ;
+    top: 0;
+    height:100%;
+    width: 20%;
+    margin-right: 50px;
+    
 }
 
 .logo {
