@@ -4,254 +4,58 @@
     <meta charset="UTF-8">
 	<title> Setting</title>
     <link rel="stylesheet" href="styles_setting.css" >
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #ffffff;
-        color: #15202b;
-        margin: 0;
-    }
-    
-    .container {
-        border-radius: 20px;
-        padding:30 px;
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        left:0px;
-    }
-    
-    .sidebar {
-      position: sticky ;
-      top: 0;
-      height:100%;
-      width: 20%;
-      margin-right: 50px;
- 
-      
-      }
-    
-    .logo {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 30px;
-      
-    }
-    
-    .logo img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-    }
-    
-    .sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .sidebar li {
-        margin-bottom: 10px;
-    }
-    
-    .sidebar a {
-        display: block;
-        padding: 10px;
-        background-color: #1da1f2;
-        color: #ffffff;
-        border-radius: 10px;
-        font-weight: bold;
-        text-decoration: none;
-    }
 
-    .sidebar a:hover {
-        background-color: #0c84d2;
-    }
-    
-    .main-content {
-        flex: 1;
-        position:relative;
-    }
-    
-    .profile {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-    
-    .profile-banner{
-      top:20px;
-      padding:20 px;
-      color: grey;
-      max-width: 1000 px;
-
-    }
-    .profile-photo {
-        width:200px;
-        border-radius: 50%;
-        position: fixed;
-        align-content: center;
-        display:flex;
-        justify-content: center;
-        
-        
-    }
-    
-    .profile-photo img {
-        position: fixed;
-        right: 200px  ;
-   
-        
-    }
-    
-    .profile-info h1 {
-        font-size: 36px;
-        margin: 0;
-    }
-    .circular--landscape { display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; margin-left:150px;} 
-    .circular--landscape img { width: auto; height: 100%; margin-left: -25px; }
-    .profile-info h2 {
-        font-size: 24px;
-        margin-left: 80px;
-    }
-    
-    .profile-info h3 {
-        font-size: 16px;
-        margin-top: 10px;
-        margin-bottom: 5px;
-    }
-    
-    .profile-info p {
-        font-size: 14px;
-        margin: 0;
-    }
-    
-    .posts {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 30px;
-    }
-    
-    .post {
-        background-color: #192734;
-        color: #ffffff;
-        border-radius: 10px;
-        padding: 20px;
-        position: relative;
-    }
-    
-    .post-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    
-    .post h2 {
-        font-size: 24px;
-        margin: 0;
-    }
-    .profile-picture img{
-        width: 200px;
-    }
-    .profile-picture{
-         margin-left: 350px;
-    }
-
-    .post p {
-        font-size: 16px;
-        margin: 0;
-    }
-    .changeItems{
-        margin-left: 150px;
-    }
-    .username{
-        margin-left: 20px;
-    }
-    .birthday{
-        margin-left: 35px;
-    }
-    .address{
-        margin-left: 35px;
-    }
-    .bio{
-        margin-left: 70px;
-    }
-    .more-button {
-        background-color: transparent;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    .form-horizontal{
-         --direction:row;
-    }
-    #ProfilePic{
-        margin-top: -180px;
-       position: absolute;
-    }
-
-    
-    .more-button:hover {
-        background-color: #1da1f2;
-    }</style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <img src="/logo.png" alt="Logo">
+                <img src="logo.png" alt="Logo">
             </div>
             <ul>
-                <li><a href="/homepage/<%= user.user_id %>">Home</a></li>
-                <li><a href="/search/<%= user.user_id %>">Search</a></li>
-                <li><a href="/profile/<%= user.user_id %>">My Profile</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="/login">Sign out</a></li>
-            </ul>
+              <li><a href="/homepage/<%= id %>">Home</a></li>
+              <li><a href="/search/<%= targetuser.user_id %>">Search</a></li>
+              <li><a href="/profile/<%= id %>">My Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="/login">Sign out</a></li>
+          </ul>
         </div>
        <div class="main-content">
           <div class="profile-banner" id="CoverPicture" style="margin-left: 120px">
-            <img src="/cover.png" width="750px">
+            <img src="cover.png" width="750px">
           </div>
-          <div class="circular--landscape" id="ProfilePic"> <img src="/profile.png" /> 
+          <div class="profile-photo" id="ProfilePic"> <img src="profile.png" /> 
         </div>
         <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; padding: 10px 20px; font-size: 16px; 
-        font-weight: bold;width: 50px; height:50px; cursor: pointer;margin-left: 150px; margin-top: -40px; margin-bottom: 20px; position: absolute">+</button>
-        <div style="margin-left: 170px; font-size: 40px; margin-top: 20px" id="Username"><%= user.username%></div>
+        font-weight: bold;width: 50px; height:50px; cursor: pointer; margin-bottom: 40px; position:relative; left:820px; top:160px; ">+</button>
+        <div style="margin-left: 120px; font-size: 40px; margin-top: 20px" id="Username"><%= user.username%></div>
           <div class="profile-info">
-            <br>
-            <form action="" class="form-horizontal">
-              <div class="flex hstack">
-                <label class="changeItems">Biography</label>
-                <textarea style="margin-left: 75px; width: 500px; height: 50px" id = "inputBio" value="<%= user.bio %>"></textarea>
+        
+            <form action="/setting/<= targetuser.user_id%>/<%= id %>" method="POST" class="form-horizontal">
+           
+                <label class="changebio">Biography</label>
+                <div class="bio">
+                <textarea id = "inputBio" placeholder="Thoughts on your mind..." value="<%=user.bio%>" required></textarea>
+                </div>
+
+                <div class="username">
+                <label class="changeItems">Reset Password</label>
+                <input type="password"  id="inputUsername"> 
+
+                <label class="changeItems">confirm Password</label>
+                <input type="password" id="inputResetPassword"> 
+                
+                </div>
+                <div class="buttons">
+                <button id="Clear" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Clear</button>
+
+                <button type="submit" id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Confirm</button>
               </div>
         </form>
-           <br>
-           <form action="" class="form-horizontal">
-            <div class="flex hstack">
-              <label class="changeItems">Reset Password</label>
-                <input type="password" style="margin-left: 30px" class="inputChange" id="inputResetPassword">
-            </div>
-      </form>
-        <br>
-        <form action="" class="form-horizontal">
-            <div class="flex hstack">
-              <label class="changeItems">Confirm Password</label>
-                <input type="password" style="margin-left: 15px" class="inputChange" id="inputResetPassword">
-            </div>
-      </form>
           </div>
-          <div>
-       <button id="Clear" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
-       font-weight: bold; cursor: pointer;margin-left: 200px; margin-top: 20px; margin-bottom: 20px">Clear</button>
-       <button id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
-       font-weight: bold; cursor: pointer;margin-left: 200px; margin-top: 20px; margin-bottom: 20px">Confirm</button>
-       
-          </div>
+   
         </div>
     </div>
 		<script> 
