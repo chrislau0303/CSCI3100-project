@@ -92,17 +92,42 @@
                             <div class="heart-btn">
                                 <div class="content">
                                     <span class="heart"></span>
-                                    <span class="like">Like</span>
-                                    <span class="numb"></span>
+                                    <span class="like"></span>
+                                    <span class="numb">12</span>
                                 </div>
                             </div>
                             <script>
-                                $(document).ready(function(){
-                                    $(".content").click(function(){
-                                        $(".content").toggleClass("heart-active")
-                                        $(".like").toggleClass("heart-active")
-                                        $(".heart").toggleClass("heart-active")
-                                        $(".numb").toggleClass("heart-active")
+                                $(document).ready(function() {
+                                    $(".content").click(function() {
+                                        var post = $(this).closest('.post');
+                                        $(this).toggleClass("heart-active");
+                                        $(this).find(".heart").toggleClass("heart-active");
+                                        
+                                        // Check if heart animation class is added or removed correctly
+                                        var heartActive = $(this).hasClass("heart-active");
+                                        var heartEl = $(this).find(".heart");
+                                        var heartAnimationActive = heartEl.hasClass("heart-active");
+                                        
+                                        if (heartActive && !heartAnimationActive) {
+                                        heartEl.addClass("heart-active");
+                                        } else if (!heartActive && heartAnimationActive) {
+                                        heartEl.removeClass("heart-active");
+                                        }
+                                        
+                                        // Parse the like count as a number if it's not empty or null
+                                        var countText = post.find(".numb").text().trim();
+                                        var count = countText ? parseInt(countText) : 0;
+                                        
+                                        if ($(this).hasClass("heart-active")) {
+                                        count++;
+                                        } else {
+                                        count--;
+                                        }
+                                        
+                                        // Update the like count text only if it's not empty or null
+                                        if (countText) {
+                                        post.find(".numb").text(count);
+                                        }
                                     });
                                 });
                             </script>
