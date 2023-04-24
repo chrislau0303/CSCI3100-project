@@ -20,7 +20,7 @@ body {
     height:100%;
     width: 20%;
     margin-right: 50px;
-    z-index: 10;
+   
 }
 
 .logo {
@@ -39,6 +39,8 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
+    left : 0px;
+    right: 20px;
 }
 
 .sidebar li {
