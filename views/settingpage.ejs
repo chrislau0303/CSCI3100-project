@@ -13,9 +13,9 @@
                 <img src="/logo.png" alt="Logo">
             </div>
             <ul>
-              <li><a href="/homepage/<%= user.id %>">Home</a></li>
+              <li><a href="/homepage/<%= user.user_id %>">Home</a></li>
               <li><a href="/search/<%= user.user_id %>">Search</a></li>
-              <li><a href="/profile/<%= user.id %>">My Profile</a></li>
+              <li><a href="/profile/<%= user.user_id %>">My Profile</a></li>
               <li><a href="#">Settings</a></li>
               <li><a href="/login">Sign out</a></li>
           </ul>
@@ -27,34 +27,33 @@
             <div class="profile-photo" id="ProfilePic">
                 <img src="/profile.png">
             </div>
-            <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; padding: 10px 20px; font-size: 16px; 
-        font-weight: bold;width: 50px; height:50px; cursor: pointer; margin-bottom: 40px; position:relative; left:820px; top:160px; ">+</button>
-            <div style="margin-left: 120px; font-size: 40px; margin-top: 20px" id="Username"><%= user.username%></div>
+            <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; font-size: 16px; 
+        font-weight: bold; width: 50px; height:50px; cursor: pointer; position:relative; left: 150px; bottom: 150px">+</button>
             <div class="profile-info">
-        
-            <form action="/setting/<= user.user_id%>/<%= user.id %>" method="POST" class="form-horizontal">
+                <div style=" margin-bottom: 50px; font-size: 40px;" id="Username"><%= user.username%></div>
+                <form action="/settingpage/<= user.user_id%>" method="POST" class="form-horizontal">
            
-                <label class="changebio">Biography</label>
-                <div class="bio">
-                <textarea id = "inputBio" placeholder="Thoughts on your mind..." value="<%=user.bio%>" required></textarea>
-                </div>
+                    <label class="changebio">Biography</label>
+                    <div class="bio">
+                        <textarea id = "inputBio" placeholder="Thoughts on your mind..." value="<%=user.bio%>"></textarea>
+                    </div>
 
-                <div class="username">
-                <label class="changeItems">Reset Password</label>
-                <input type="password"  id="inputUsername"> 
+                    <div class="username">
+                        <label class="changeItems">Reset Password</label>
+                        <input type="password"  id="inputUsername"> 
 
-                <label class="changeItems">confirm Password</label>
-                <input type="password" id="inputResetPassword"> 
+                        <label class="changeItems">confirm Password</label>
+                        <input type="password" id="inputResetPassword"> 
                 
-                </div>
-                <div class="buttons">
-                <button id="Clear" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
-                font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Clear</button>
+                    </div>
+                    <div class="buttons">
+                        <button id="Clear" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                    font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Clear</button>
 
-                <button type="submit" id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
-                font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Confirm</button>
-              </div>
-            </form>
+                        <button type="submit" id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                    font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Confirm</button>
+                    </div>
+                </form>
             </div>
    
         </div>
