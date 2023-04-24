@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create New Post</title>
+	<link rel="stylesheet" href="styles_post.css">
+</head>
+<body>
+	<div class="container">
+        <button class="close-button">&times;</button>
+        <h1>Create New Post</h1>
+		<form>
+			<label for="content">Content:</label>
+			<textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." required></textarea>
+
+			<label for="media">Image/Video (optional):</label>
+			<input type="file" id="media" name="media" accept="image/*, video/*">
+
+			<label for="hidden-post">Hide post?</label>
+			<input type="checkbox" id="hidden-post" name="hidden-post" value="yes">
+
+			<button type="submit">POST</button>
+		</form>
+	</div>
+</body>
+</html>
