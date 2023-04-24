@@ -10,28 +10,29 @@
     <div class="container">
         <div class="sidebar">
             <div class="logo">
-                <img src="logo.png" alt="Logo">
+                <img src="/logo.png" alt="Logo">
             </div>
             <ul>
-              <li><a href="/homepage/<%= id %>">Home</a></li>
-              <li><a href="/search/<%= targetuser.user_id %>">Search</a></li>
-              <li><a href="/profile/<%= id %>">My Profile</a></li>
+              <li><a href="/homepage/<%= user.id %>">Home</a></li>
+              <li><a href="/search/<%= user.user_id %>">Search</a></li>
+              <li><a href="/profile/<%= user.id %>">My Profile</a></li>
               <li><a href="#">Settings</a></li>
               <li><a href="/login">Sign out</a></li>
           </ul>
         </div>
        <div class="main-content">
-          <div class="profile-banner" id="CoverPicture" style="margin-left: 120px">
-            <img src="cover.png" width="750px">
-          </div>
-          <div class="profile-photo" id="ProfilePic"> <img src="profile.png" /> 
-        </div>
-        <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; padding: 10px 20px; font-size: 16px; 
+            <div class="profile-banner" id="CoverPicture" style="margin-left: 120px">
+                <img src="/cover.png" width="750px">
+            </div>
+            <div class="profile-photo" id="ProfilePic">
+                <img src="/profile.png">
+            </div>
+            <button style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 999999px; padding: 10px 20px; font-size: 16px; 
         font-weight: bold;width: 50px; height:50px; cursor: pointer; margin-bottom: 40px; position:relative; left:820px; top:160px; ">+</button>
-        <div style="margin-left: 120px; font-size: 40px; margin-top: 20px" id="Username"><%= user.username%></div>
-          <div class="profile-info">
+            <div style="margin-left: 120px; font-size: 40px; margin-top: 20px" id="Username"><%= user.username%></div>
+            <div class="profile-info">
         
-            <form action="/setting/<= targetuser.user_id%>/<%= id %>" method="POST" class="form-horizontal">
+            <form action="/setting/<= user.user_id%>/<%= user.id %>" method="POST" class="form-horizontal">
            
                 <label class="changebio">Biography</label>
                 <div class="bio">
@@ -53,8 +54,8 @@
                 <button type="submit" id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
                 font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Confirm</button>
               </div>
-        </form>
-          </div>
+            </form>
+            </div>
    
         </div>
     </div>
