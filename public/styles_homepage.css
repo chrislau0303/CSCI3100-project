@@ -49,7 +49,6 @@ body {
     font-weight: 400;
     line-height: 24px;
     text-align: left;
-    text-decoration: none;
 }
 
 .logo {
@@ -85,7 +84,10 @@ body {
 }
 
 .sidebar a:hover {
-  background-color: #0c84d2;
+    background-color: #0c84d2;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 header {
