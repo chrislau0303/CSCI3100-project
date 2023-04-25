@@ -96,7 +96,7 @@
                         <button class="dropbtn">...</button>
                         <div class="dropdown-content">
                             <!-- Add the post_id to the "Edit" button -->
-                            <a class="popupeditbtn" id="edit-button-<%= posts[i].post_id %>">Edit</a>
+                            <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
                             <a>
                                 <form action="/profile/<%= user.user_id %>" method="POST">
                                     <input type="hidden" id="method" name="method" value="DELETE">
