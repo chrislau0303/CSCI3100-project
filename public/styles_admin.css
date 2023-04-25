@@ -1,53 +1,74 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
+    background-color: #000000;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-image: none;
+    background-origin: padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    box-sizing: border-box;
+    color: #15202b;
+    display: flex;
+    justify-content: center;
+    line-height: 24px;
     margin: 0;
+    text-align: left;
+    align-items: center;
 }
 
 .container {
     left: 0px;
     border-radius: 20px;
-    padding: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
+    box-sizing: border-box;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-left: 92px;
+    margin-right: 92px;
+    margin-top: 20px;
+    max-width: 1140px;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 30px;
+    text-align: left;
 }
 
 .sidebar {
-    position: sticky ;
+    position: sticky;
     top: 0;
     height:100%;
     width: 20%;
     margin-right: 50px;
-
+    max-width: 200px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
 }
-.coverphoto {
-   
-    top:20px;
-    padding: 20px;
-    color: gray;
-    max-width: 1000px;
-    
-}
-.coverphoto img{
-    width: 1000px ;
-    border-radius:10px;
-    margin-bottom: 20px ;
 
-
+.main-content {
+    flex: 1;
+    max-height: 700px;
+    width: 80%;
 }
 
 .logo {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+    border-radius: 10px;
 }
 
 .logo img {
     width: 150px;
     height: 150px;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 .sidebar ul {
@@ -73,19 +94,29 @@ body {
 }
 
 .sidebar a:hover , a#opencreatepage:hover{
-    text-decoration: none;
     background-color: #0c84d2;
-    color: #ffffff;
-}
-
-.main-content {
-    flex: 1;
+    cursor: pointer;
 }
 
 .profile {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+}
+
+.coverphoto {
+    top:20px;
+    padding: 20px;
+    color: gray;
+    max-width: 1000px;
+}
+
+.coverphoto img {
+    width: 80% ;
+    border-radius:10px;
+    margin-bottom: 20px ;
+    position: relative;
+    left: 100px;
 }
 
 .profile-photo {
@@ -107,11 +138,6 @@ body {
     margin: 0;
 }
 
-#admintag{
-    font-size: 36px;
-    margin: 0;
-    color: red;
-}
 .profile-info h2 {
     font-size: 24px;
     margin-left: 80px;
@@ -158,10 +184,8 @@ body {
     font-size: 16px;
     margin: 0;
 }
-
-
   
-.popupcreatepost{
+.popupcreatepost, .popupeditpost{
     right: 40%;
     align-content: center;
     background-color: #192734;
@@ -174,24 +198,14 @@ body {
     justify-content: space-between;
     position: fixed;
     margin: 0 auto;
-  }
+    top: 20%;
+    bottom: 10%;
+}
+
 .show {
     display:flex;
 }
 
-.popupeditpost{
-    left: 40%;
-    background-color: #192734;
-    color: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    width: 350px;
-    position:fixed;
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 auto;
-}
  /* Dropdown Button */
  .dropbtn {
     background-color: transparent;
@@ -203,6 +217,7 @@ body {
   
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
+
     position: absolute;
     display: inline-block;
     border-radius: 10px;
@@ -217,7 +232,6 @@ body {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 10px;
-    z-index: 99;
   }
   
   /* Links inside the dropdown */
@@ -228,6 +242,17 @@ body {
     display: block;
     border-radius: 10px;
   }
+
+  .dropdown-content a form button {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    background-color: transparent;
+    display: block;
+    border: none;
+  }
+  .dropdown-content a form button:hover {
+    color: #1e82e0;
+  }
   
   /* Change color of dropdown links on hover */
   .dropdown-content a:hover {background-color: #ddd;}
@@ -237,7 +262,8 @@ body {
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #e6f4e600;}
-  /* body{background: #eee} */
+
+
   .date{font-size: 11px}
   .comment-text{font-size: 12px}
   .fs-12{font-size: 12px}
@@ -254,6 +280,7 @@ body {
   .mb-100{margin-bottom:100px}
   .card{
     position: relative;
+    z-index: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -330,4 +357,92 @@ body {
 
         #emoji-button:hover{
             background-color: none !important;
+        }
+
+        .deletelist{
+            margin-left: 50px ;
+        }
+
+        .delete-btn{
+            margin-left: 80px;
+            position: relative;
+            left:200px;
+        }
+
+        .userinfo{
+            max-width: 300px;
+        }
+
+        button[type=submit] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        button[type=submit]:hover {
+            background-color: #f00808;
+        }
+
+        .result-photo {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            position:relative ;
+            right:100px;
+        }
+        
+        .result-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            bottom:24px;
+            position:relative ;
+        }
+
+        /* Set the background color of the table */
+        table {
+            background-color: #fafafa;
+            height:90%;
+            border-radius: 10px;
+
+        }
+      
+        /* Set the background color of the table header row */
+        thead tr {
+            font-size: 30px;
+            color: #000000;
+            background-color: #fafafa;
+        
+        }
+        
+        /* Set the background color of the table body rows on hover */
+        tbody tr:hover {
+            background-color: #ccc;
+            max-width: 100px;
+            max-height: 100px;
+            
+        }
+       
+        tbody tr {
+            max-width: 100px;
+            max-height: 100px;
+            
+        }
+
+        
+        /* Set the font color of the table body cells */
+        tbody td {
+            color: #333;
+            background-color: #fafafa;
+        }
+        
+        /* Set the border color of the table */
+        table, th {
+            border: 5px solid #ddddddf2;
+          
         }
