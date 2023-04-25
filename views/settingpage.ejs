@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title> Setting</title>
+    <link rel="stylesheet" href="/styles_setting.css" >
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="/logo.png" alt="Logo">
+            </div>
+            <ul>
+                <li><a href="/homepage/<%= user.user_id %>">Home</a></li>
+                <li><a href="/search/<%= user.user_id %>">Search</a></li>
+                <li><a href="/profile/<%= user.user_id %>">My Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="/login">Sign out</a></li>
+          </ul>
+        </div>
+        <div class="main-content">
+            <div class="coverphoto">
+                <img src="/cover.png">
+            </div>
+            <div class="profile-photo" id="ProfilePic">
+                <img src="/profile.png">
+            </div>
+            <button id="changeImagebtn">+</button>
+            <div class="profile-info" style="position:relative; bottom:250px; left:250px">
+                <h1><%= user.username%></h1>
+            </div>
+            <div class="setting-info">
+                <form id="reset">
+                    <label class="changebio">Biography</label>
+                    <textarea name="bio" id = "bio" placeholder="Something about you..." value="<%= user.bio %>"></textarea>
+                    <br><br>
+
+                    <label class="changeItems">Reset Password</label>
+                    <input type="password" name="pw1" id="pw1"> 
+
+                    <label class="changeItems">confirm Password</label>
+                    <input type="password" name="pw2" id="pw2"> 
+
+                    <button type="reset" id="Clear" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                    font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px">Clear</button>
+
+                    <button type="submit" id="Confirm" style="background-color: #1DA1F2; color: #FFFFFF; border: none; border-radius: 9999px; padding: 10px 20px; font-size: 16px; 
+                    font-weight: bold; cursor: pointer;margin-left: 100px; margin-top: 20px; margin-bottom: 20px" value="Submit">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function checkpw(password, password2) {
+            var passwordOK = true
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long')
+                passwordOK = false
+            }
+            if (!/\d/.test(password) || /^\d+$/.test(password)) {
+                alert('Password must contain both characters and digits')
+                passwordOK = false
+            }
+            if (passwordOK && password2 != password) {
+                alert('Password does not match')
+                passwordOK = false
+            }
+            if (!passwordOK) return false
+            else return true
+        }
+
+        const form = document.getElementById('reset')
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const password = document.getElementById('pw1').value
+            const password2 = document.getElementById('pw2').value
+            const bio = document.getElementById('bio').value
+
+            console.log(password)
+            console.log(password2)
+            console.log(bio)
+
+            var data
+            if ((password != '' || password2 != '') && bio != '') {
+                if (checkpw(password, password2)) {
+                    data = {
+                        pw: password,
+                        bio: bio
+                    }
+                } else {
+                    return false
+                }
+            } else if (bio == '') {
+                if (checkpw(password, password2)) {
+                    data = {
+                        pw: password,
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                data = {
+                    bio: bio
+                }
+            }
+
+            const response = await fetch('/settingpage/<%= user.user_id %>', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            console.log(response)
+            if (response.ok) {
+                window.location.href = '/settingpage/<%= user.user_id %>'
+            }
+        });
+    </script>
+</body>
+</html>
