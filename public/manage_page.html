@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles_post.css">
+    <link rel="stylesheet" href="styles_admin.css">
+</head>
+<body>
+    <iframe src="chatroom.html" name=" chatbtn" style="border:none; position: fixed;display: relative;
+        right:15px;bottom: 15px;width:1000px;height: 600px;"></iframe>
+    <div class="container" id = "containerid">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <ul>
+                <li><a class = "createpostbtn" id = "opencreatepage" href="#">New Post+</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">My Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Manage</a></li>
+                <li><a href="#">Sign out</a></li>
+            </ul>
+        </div>
+        
+        <table>
+         <thead>
+         <tr>
+        <th>User Information </th>
+         </tr>
+        </thead>
+        <tbody>
+	<div class = "deletelist" >	
+        <tr>
+             <td>1</td>
+
+             <td> <div class="result-photo">
+                <li> <a href="#">
+                <img src="profile.png" alt="result-Photo">
+                </a></li> 
+                </div> 
+             </td>
+             <td>
+                <div class="userinfo">
+                username
+                </div>
+             </td>
+           
+           
+             <td><button class="delete-btn" type="submit" value="Submit">Delete</button></td>
+        </tr>
+    </div>
+        <tr>
+             
+            <td>2</td>
+
+            <td> <div class="result-photo">
+               <li> <a href="#">
+               <img src="profile.png" alt="result-Photo">
+               </a></li> 
+               </div> 
+            </td>
+            <td>
+               <div class="userinfo">
+                username
+               </div>
+            </td>
+             
+            <td><button class="delete-btn" type="submit" value="Submit">Delete</button></td>
+       </tr>
+       <tr>
+             
+        <td>3</td>
+
+        <td> <div class="result-photo">
+           <li> <a href="#">
+           <img src="profile.png" alt="result-Photo">
+           </a></li> 
+           </div> 
+        </td>
+        <td>
+           <div class="userinfo">
+            username
+           </div>
+        </td>
+ 
+        <td><button class="delete-btn" type="submit" value="Submit">Delete</button></td>
+         </tr>
+        </tbody>
+        </table>
+        <script>
+            // Get all delete buttons
+            const deleteBtns = document.querySelectorAll('.delete-btn');
+            deleteBtns.forEach(deleteBtn => {
+                deleteBtn.addEventListener('click', () => {
+                  console.log('Delete button clicked');
+                  const row = deleteBtn.parentNode.parentNode;
+                  row.remove();
+                });
+              });
+              
+            // Loop through delete buttons and add event listener to each
+      
+          </script>
+        </div> 
+
+    </div>
+    </body>
