@@ -2,49 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="/styles_profile.css">
+    <title>Admin Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/styles_admin.css">
-    <style>
-      h1{
-          display: inline;
-      }
-      .deleteButton {
-        display: inline-block;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 20px;
-        padding: 6px 16px;
-        border-radius: 9999px;
-        color: #fff;
-        background-color: #e0245e;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.2s ease-in;
-      }
-    
-      .deleteButton:hover {
-        background-color: #c81d4e;
-      }
-    
-      .deleteButton:active {
-        background-color: #ad1c45;
-      }
-  </style>
+    <link rel="stylesheet" href="styles_post.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+    <link rel="stylesheet" href="stlyles_admin.css">
 </head>
 <body>
+    <!-- <div>
         <iframe src="chatroom.html" name=" chatbtn" style="border:none; position: fixed;
             right:15px;bottom: 15px;width:1000px;height: 600px;background-color: transparent;"></iframe>
+        </div> -->
     <div class="container" id = "containerid">
         <div class="sidebar">
             <div class="logo">
@@ -56,52 +38,86 @@
                 <li><a href="#">Search</a></li>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="/login.html">Sign out</a></li>
+                <li><a href="#">Manage</a></li>
+                <li><a href="#">Sign out</a></li>
             </ul>
         </div>
         
         <div class="main-content">
              <div class="coverphoto">
-                <img src="cover.png" alt="cover">
+                <img src="cover.jpeg" alt="cover">
             </div>
             <div class="profile">
                 <div class="profile-photo">
                     <img src="profile.png" alt="Profile Photo">
                 </div>
                 <div class="profile-info">
-                    <h1 style="color: red;">Admin:</h1>
-                    <h1 style="color: white;">Chris Wong</h1>
-                    <h3 style="color: white;">Biography:</h3>
-                    <p style="color: white;">I am a student from CUHK</p>
+                    <label for="content" id = "admintag">Admin:</label>
+                    <h1>Chris Wong</h1>
+                    <h3>Biography:</h3>
+                    <p>I am a student from CUHK</p>
                 </div>
                 <div class="profile-info">
-                    <h2 style="color: white;">94 Followers</h2>
+                    <h2>94 Followers</h2>
                 </div>
                 <div class="profile-info">
-                    <h2 style="color: white;">102 Following</h2>
+                    <h2>102 Following</h2>
                 </div>
             </div>
             <div class="posts">
                 <div class="post">
                     <div class="post-header">
-                        <h2>Posted on 24 March...</h2>
+                        <h2 data-date-id = "1">Posted on 24 March...</h2>
                        <div class="dropdown">
                             <button class="dropbtn">...</button>
                             <div class="dropdown-content">
-                              <a id = "popupeditbtn" href="#">Edit</a>
+                              <a class= "popupeditbtn" href="#" data-post-id="1">Edit</a>
                               <a href="#">Delete</a>
                             </div>
                         </div>
                     </div>
                     <p>This is my third post</p>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Comments</h4>
+                        </div>
+                        <div class="comment-widgets">
+                            <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row m-t-0">
+                                <div class="p-2"></div>
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                                </div>
+                            </div> <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row">
+                                <div class="p-2"></div>
+                                <div class="comment-text active w-100">
+                                    <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                                    <div class="comment-footer"> </div>
+                                </div>
+                            </div> <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row">
+                                <div class="p-2"></div>
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
+                                    <div class="comment-footer"></div>
+                                </div>
+                            </div>
+                        </div> <!-- Card -->
+                    <div class="p-2 card-footer">
+                        <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                        <button id = "emoji-button" >&#128578;</button>
+                        <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                    </div>
+                </div>
                 </div>
                 <div class="post">
                     <div class="post-header">
-                        <h2>Posted on 3 March...</h2>
+                        <h2 data-date-id = "2">Posted on 3 March...</h2>
                         <div class="dropdown">
                             <button class="dropbtn">...</button>
                             <div class="dropdown-content">
-                                <a id = "popupeditbtn" href="#" >Edit</a>
+                                <a class = "popupeditbtn" href="#" data-post-id="2" >Edit</a>
                                 <a href="#">Delete</a>
                             </div>
                         </div>
@@ -110,109 +126,20 @@
                 </div>
                 <div class="post">
                     <div class="post-header">
-                        <h2>Posted on 26 Feb...</h2>
+                        <h2 data-date-id = "3">Post on 26 Feb...</h2>
                         <div class="dropdown">
                             <button class="dropbtn">...</button>
                             <div class="dropdown-content">
-                                <a id = "popupeditbtn" href="#" >Edit</a>
+                                <a class = "popupeditbtn" href="#" data-post-id="3" >Edit</a>
                               <a href="#">Delete</a>
                             </div>
                         </div>
                     </div>
                     <p>This is my first post</p>
                 </div>
-                <div class="post">
-                  <div class="post-header">
-                      <h2>Posted on 3 March...</h2>
-                      <div class="dropdown">
-                          <button class="dropbtn">...</button>
-                          <div class="dropdown-content">
-                              <a id = "popupeditbtn" href="#" >Edit</a>
-                              <a href="#">Delete</a>
-                          </div>
-                      </div>
-                  </div>
-                  <p>This is my second post</p>
-              </div>
-              <div class="post">
-                <div class="post-header">
-                    <h2>Posted on 3 March...</h2>
-                    <div class="dropdown">
-                        <button class="dropbtn">...</button>
-                        <div class="dropdown-content">
-                            <a id = "popupeditbtn" href="#" >Edit</a>
-                            <a href="#">Delete</a>
-                        </div>
-                    </div>
-                </div>
-                <p>This is my second post</p>
-            </div>
-            </div>
-            <div class="col-sm-9 col-md-10 main">
-              <!-- <h1 class="page-header">Dashboard</h1> -->
-   
-              <h2 class="sub-header" style="color: white;">Users List</h2>
-              <div class="table-responsive">
-                <table class="table table-striped" id="table">
-                  <thead>
-                    <tr>
-                      <th style="color: white;">Username</th>
-                      <th style="color: white;">User email</th>
-                      <th style="color: white;">Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr id="user1">
-                      <td style="color: white;">Chris Lau</td>
-                      <td style="color: white;">email@gmail.com</td>
-                      <td>
-                          <button class="deleteButton" onclick="removeUser1()">
-                              Delete
-                          </button>
-                      </td>
-                    </tr>
-                    <tr id="user2">
-                      <td style="color: white;">Issac</td>
-                      <td style="color: white;">issac@gmail.com</td>
-                      <td>
-                          <button class="deleteButton" onclick="removeUser2()">
-                              Delete
-                          </button>
-                      </td>
-                    </tr>
-                     <tr id="user3">
-                      <td style="color: white;">Michael</td>
-                      <td style="color: white;">michael@gmail.com</td>
-                      <td>
-                          <button class="deleteButton" onclick="removeUser3()">
-                              Delete
-                          </button>
-                      </td>
-                    </tr>
-                    </tr>
-                     <tr id="user4">
-                      <td style="color: white;">Cherry Law</td>
-                      <td style="color: white;">cherry@gmail.com</td>
-                      <td>
-                          <button class="deleteButton" onclick="removeUser4()">
-                              Delete
-                          </button>
-                      </td>
-                    </tr>
-                    <tr id="user5">
-                        <td style="color: white;">Dennis Law</td>
-                        <td style="color: white;">dennis@gmail.com</td>
-                        <td>
-                            <button class="deleteButton" onclick="removeUser5()">
-                                Delete
-                            </button>
-                        </td>
-                      </tr>
-                  </tbody>
-                </table>
-              </div>
             </div>
         </div>
+        
     <div class="popupcreatepost" >
             <button class="close-button" id = "closecreatepage">&times;</button>
             <h1>Create New Post</h1>
@@ -229,10 +156,19 @@
                 <button type="submit">POST</button>
             </form>
     </div>
-    <div class="popupeditpost">
+    <script>const popupcreate = document.querySelector('.popupcreatepost');
+        const postcreatebtn = document.querySelector('#opencreatepage');
+        const closeModalButton = document.querySelector('#closecreatepage');
+        postcreatebtn.addEventListener('click', () => {
+        popupcreate.classList.toggle('show');
+        popupcreate.style.display = 'block';});
+        closeModalButton.addEventListener('click', () => {
+        popupcreate.style.display = 'none';});</script>
+
+    <div class="popupeditpost" data-index="i">
         <button class="close-button" id = "closeedit">&times;</button>
-        <h1>Edit post posted on 25 March...</h1>
-        <form>
+        <h1 id = "edithead" name = "edithead" value=""></h1>
+        <form id = "editform" data-index="i">
             <label for="content">Content:</label>
             <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." required></textarea>
 
@@ -242,22 +178,7 @@
             <button type="submit">DONE</button>
         </form>
     </div>
-    <script>
-        function removeUser1(){
-            document.getElementById('table').deleteRow(1);
-        }
-        function removeUser2(){
-            document.getElementById('table').deleteRow(2);
-        }
-        function removeUser3(){
-            document.getElementById('table').deleteRow(3);
-        }
-        function removeUser4(){
-            document.getElementById('table').deleteRow(4);
-        }
-        function removeUser5(){
-            document.getElementById('table').deleteRow(5);
-        }
-    </script>
+    </div>
+    <script src="profile.js"></script>
 </body>
 </html>
