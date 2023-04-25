@@ -49,6 +49,7 @@ body {
     font-weight: 400;
     line-height: 24px;
     text-align: left;
+    text-decoration: none;
 }
 
 .logo {
@@ -366,63 +367,63 @@ body{background: #eee}
     height: 100px;
 
 }
-    .card-body{
-        -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        padding: 1.25rem
-    }.card .card-title{
-        position: relative;
-        font-weight: 600;
-        margin-bottom: 10px
-    }
-    .comment-widgets{
-        position: relative;
-        margin-bottom: 10px
-    }
-    .comment-widgets .comment-row{
-        border-bottom: 1px solid transparent;
-        padding: 14px;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        margin: 10px 0
-    }
-    .p-2{
-        padding: 0.5rem !important
-    }
-    .comment-text{
-        padding-left: 15px
-    }
-    .w-100{width: 100% !important}
-    .m-b-15{
-        margin-bottom: 15px;
-        color: black ;
+.card-body{
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem
+}.card .card-title{
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px
+}
+.comment-widgets{
+    position: relative;
+    margin-bottom: 10px
+}
+.comment-widgets .comment-row{
+    border-bottom: 1px solid transparent;
+    padding: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 10px 0
+}
+.p-2{
+    padding: 0.5rem !important
+}
+.comment-text{
+    padding-left: 15px
+}
+.w-100{width: 100% !important}
+.m-b-15{
+    margin-bottom: 15px;
+    color: black ;
 
-    }
-    .btn-sm{
-        padding: 0.25rem 0.5rem;
-        font-size: 0.76563rem;
-        line-height: 1.5;
-        border-radius: 1px
-    }.btn-cyan{
-        color: #fff;
-        background-color: #27a9e3;
-        border-color: #27a9e3}
-        .btn-cyan:hover{color: #fff;
-            background-color: #1a93ca;
-            border-color: #198bbe
-        }.comment-widgets .comment-row:hover{
-            background: rgba(0, 0, 0, 0.05)}
+}
+.btn-sm{
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76563rem;
+    line-height: 1.5;
+    border-radius: 1px
+}.btn-cyan{
+    color: #fff;
+    background-color: #27a9e3;
+    border-color: #27a9e3}
+.btn-cyan:hover{color: #fff;
+    background-color: #1a93ca;
+    border-color: #198bbe
+}.comment-widgets .comment-row:hover{
+    background: rgba(0, 0, 0, 0.05)}
 
-        #emoji-button {
-            border: none !important;
-            position: absolute;
-            font-size: 1.2rem;
-            background-image: transparent;
-            opacity: 1.5;
-        }
+#emoji-button {
+    border: none !important;
+    position: absolute;
+    font-size: 1.2rem;
+    background-image: transparent;
+    opacity: 1.5;
+}
 
-        #emoji-button:hover{
-            background-color: none !important;
-        }
+#emoji-button:hover{
+    background-color: none !important;
+}
