@@ -96,7 +96,7 @@
                         <button class="dropbtn">...</button>
                         <div class="dropdown-content">
                             <!-- Add the post_id to the "Edit" button -->
-                            <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>">Edit</a>
+                            <a class="popupeditbtn" id="edit-button-<%= posts[i].post_id %>">Edit</a>
                             <a>
                                 <form action="/profile/<%= user.user_id %>" method="POST">
                                     <input type="hidden" id="method" name="method" value="DELETE">
@@ -148,7 +148,6 @@
                               <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
                               <input type="hidden" name="method" value="PUT">
                               <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                              <input type="hidden" id="postSize" name="postSize" value="<%= posts.length %>">
                               <label for="content">Content:</label>
                               <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." value="<%= posts[i].post_des %>" required></textarea>
                               <label for="hide_post">Hide post?</label>
