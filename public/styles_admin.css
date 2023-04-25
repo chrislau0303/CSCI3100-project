@@ -133,6 +133,11 @@ body {
     object-fit: cover;
 }
 
+#admintag {
+    font-size: 36px;
+    margin: 0;
+    color: red;
+}
 .profile-info h1 {
     font-size: 36px;
     margin: 0;
