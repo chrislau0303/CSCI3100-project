@@ -94,6 +94,8 @@ body {
 .sidebar a:hover , a#opencreatepage:hover{
     background-color: #0c84d2;
     cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .profile {
