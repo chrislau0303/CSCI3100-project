@@ -130,12 +130,17 @@ app.get('/profile/:id(\\d+)', (req, res) => {
                             return
                         }
                         following = result.length
+                        var temp =[]
                         if (typeof post_result[0] !== 'undefined') {
-                            const posts = post_result
-                            res.render('profile', { user, posts, id, followers, following})
-                        } else {
-                            res.render('profile', { user, posts: [], id, followers, following})
+                            temp = post_result
                         }
+                        const posts = temp.map(post => {
+                            return {
+                                ...post,
+                                post_time: formatDate(post.post_time)
+                            };
+                        });
+                        res.render('profile', { user, posts, id, followers, following})
                     })
                 })
             })
@@ -265,6 +270,16 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                     console.log('[SELECT ERROR] - ', err.message)
                     return
                 }
+                var temp = []
+                if (typeof post_result[0] !== 'undefined') {
+                    temp = post_result
+                }
+                const posts = temp.map(post => {
+                    return {
+                        ...post,
+                        post_time: formatDate(post.post_time)
+                    };
+                });
                 var follow = false
                 var followers = 0
                 var sql = 'SELECT * FROM followers WHERE user_id = ?'
@@ -288,12 +303,28 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                             return
                         }
                         following = result.length
-                        if (typeof post_result[0] !== 'undefined') {
-                            const posts = post_result
-                            // console.log(posts)
-                            res.render('other_profile', { targetuser, posts, id, followers, following, follow})
-                        } else {
-                            res.render('other_profile', { targetuser, posts: [], id, followers, following, follow})
+                        var likes = []
+                        var liked = []
+                        for (let i = 0; i < posts.length; i++) {
+                            var sql = 'SELECT * FROM likes WHERE post_id = ?'
+                            db.query(sql, posts[i].post_id, function (err, result) {
+                                if (err) {
+                                    console,log('[SELECT ERROR] - ', err.message)
+                                    return
+                                }
+                                likes.push(result.length)
+                                var likedBefore = 'false'
+                                for (let j = 0; j < result.length; j++) {
+                                    if (result[j].follower_id == id) {
+                                        likedBefore = 'true'
+                                        break
+                                    }
+                                }
+                                liked.push(likedBefore)
+                                if (likes.length == posts.length) {
+                                    res.render('other_profile', { targetuser, posts, id, followers, following, follow, likes, liked})
+                                }
+                            })
                         }
                     })
                 })
@@ -303,7 +334,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
         }
     });
 })
-app.post('/update/:targetid(\\d+)/:id(\\d+)', (req, res) => {
+app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
     const {follow} = req.body
     const targetid = req.params.targetid
     const id = req.params.id
@@ -344,8 +375,6 @@ app.post('/update/:targetid(\\d+)/:id(\\d+)', (req, res) => {
                 return
             }
             following = result.length
-            console.log(following)
-            console.log(followers)
             res.json({
                 following: following,
                 followers: followers
@@ -353,6 +382,43 @@ app.post('/update/:targetid(\\d+)/:id(\\d+)', (req, res) => {
         })
     })
 });
+app.post('/update-like/:id(\\d+)', (req, res) => {
+    const {action, post_id} = req.body
+    const id = req.params.id
+
+    if (action == 'like') {
+        var sql = 'INSERT INTO likes (post_id,follower_id) VALUES (?,?)'
+        var values = [post_id, id]
+        db.query(sql, values, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message)
+                return
+            }
+            console.log('user liked a post')
+        })
+    } else if (action == 'unlike') {
+        var sql = 'DELETE FROM likes WHERE post_id = ? AND follower_id = ?'
+        var values = [post_id, id]
+        db.query(sql, values, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message)
+                return
+            }
+            console.log('user unliked a post')
+        })
+    }
+
+    var sql = 'SELECT * FROM likes WHERE post_id = ?'
+    db.query(sql, post_id, function (err, result) {
+        if (err) {
+            console.log('[SELECT ERROR] - ', err.message)
+            return
+        }
+        res.json({
+            likes: result.length
+        })
+    })
+})
 
 
 app.get('/settingpage/:id(\\d+)', (req, res) => {
@@ -360,7 +426,8 @@ app.get('/settingpage/:id(\\d+)', (req, res) => {
     var sql = 'SELECT * FROM rettiwtUser WHERE user_id = ?'
     db.query(sql, id, function (err, result) {
         if (err) {
-        console.log('[SELECT ERROR] - ', err.message); return;
+            console.log('[SELECT ERROR] - ', err.message); 
+            return;
         }
         const user = result[0]
         res.render('settingpage', {user})
@@ -437,3 +504,15 @@ db.query(sql, function (err, result) {
 app.listen(3000, () => {
   console.log('Server is listening on port 3000...')
 })
+
+// format post_time function
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    const hours = String(date.getUTCHours()).padStart(2, '0');
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
