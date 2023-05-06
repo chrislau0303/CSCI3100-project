@@ -58,18 +58,22 @@ body {
 }
 
 .coverphoto {
+   
     top:20px;
     padding: 20px;
     color: gray;
     max-width: 1000px;
+    
 }
-
-.coverphoto img {
+.coverphoto img{
     width: 80% ;
     border-radius:10px;
     margin-bottom: 20px ;
     position: relative;
-    left: 100px;
+    left:100px;
+    z-index: -1;
+
+
 }
 
 .logo {
@@ -108,9 +112,10 @@ body {
 
 .sidebar a:hover {
     background-color: #0c84d2;
-    cursor: pointer;
-    text-decoration: none;
-    color: #ffffff;
+}
+
+.main-content {
+    flex: 1;
 }
 
 .profile {
@@ -158,14 +163,16 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 30px;
+    overflow: auto;
 }
 
 .post {
     background-color: #192734;
     color: #ffffff;
     border-radius: 10px;
-    padding: 20px;
-    
+    padding: 5%;
+    /* width: 100%;
+    height: 200px; */
 }
 
 .post-header {
@@ -176,9 +183,10 @@ body {
 }
 
 .post-footer {
-    position: relative;
-    left: 70%;
-    bottom: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .post h2 {
@@ -192,7 +200,6 @@ body {
 }
 
 
-  
 .popupcreatepost{
     right: 40%;
     align-content: center;
@@ -207,7 +214,8 @@ body {
     position: fixed;
     top: 15%;
     margin: 0 auto;
-  }
+}
+
 .show {
     display:flex;
 }
@@ -225,25 +233,26 @@ body {
     justify-content: space-between;
     margin: 0 auto;
 }
- /* Dropdown Button */
- .dropbtn {
+
+/* Dropdown Button */
+.dropbtn {
     background-color: transparent;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
-  }
+}
   
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
     position: absolute;
     display: inline-block;
     border-radius: 10px;
     background-color: transparent;
-  }
+}
   
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #1e82e0;
@@ -251,27 +260,27 @@ body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 10px;
     z-index: 99;
-  }
+}
   
-  /* Links inside the dropdown */
-  .dropdown-content a {
+/* Links inside the dropdown */
+.dropdown-content a {
     color: rgb(255, 255, 255);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     border-radius: 10px;
-  }
+}
   
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {background-color: #e6f4e600;}
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
 
-  .follow-button {
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #e6f4e600;}
+
+.follow-button {
     color: #f7fbff;
     font-family: "Helvetica";
     font-size: 10pt;
@@ -285,9 +294,9 @@ body {
     display:grid;	
     place-content: center;	
     box-shadow: 0 8px 5px -5px rgba(0, 0, 0, 0.2);    
-  }
+}
 
-  .loader{
+.loader{
     pointer-events: none;
     width: 30px;
     height: 30px;
@@ -296,27 +305,24 @@ body {
     border-top-color: #fdfdfd;
     animation: an1 1s ease infinite;
 
- }
+}
 
-  @keyframes an1 {
+@keyframes an1 {
     0% {
         transform: rotate(0turn);
     }
     100% {
         transform: rotate(1turn);
     }
-    
-  }
+}
 
 .cs{
-	position: relative;
-	
+	position: relative;	
     top:50px;
 }
+
 .heart-btn{
-	position: absolute;
-	
-	transform: translate(-50%, -50%);
+	transform: translate(0%, 0%);
 }
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
@@ -324,33 +330,32 @@ body {
 .content{
 	border: 2px solid #eae2e1;
 	padding: 8px 10px;
+    padding-left: 30px;
 	border-radius: 5px;
 	display: flex;
 	cursor: pointer ;
-	position: relative;
-	top: 50px;
-	right:-100px;
 }
 
 .content.heart-active{
 	border-color: #f9b9c4 ;
 	background: #fbd0d8 ;
 }
+
 .content .heart{
-	height:90px;
+	height: 90px;
 	width: 45px;
 	background: url("img.png") no-repeat;
 	background-position: left;
 	background-size: 2900% ;
 	position: absolute ;
 	top: 50%;
-	left: -10px;
+	left: 15px;
 	transform: translate(-50%, -50%);
 }
-
 .heart.heart-active{
     background-position: right;
     animation: animate .8s steps(28) 1;
+
 }
 
 @keyframes animate {
@@ -361,6 +366,7 @@ body {
         background-position: right;
     }
 }
+
 .like{
 	margin-left: 10px;
 	font-size: 10px;
@@ -382,4 +388,113 @@ body {
 
 .numb.heart-active:before{	
 	color: black;
+    
+}
+
+#update-follow button {
+    border-radius: 50px;
+    border: none;
+}
+
+/* Comment box */
+body{background: #eee}
+.date{font-size: 11px}
+.comment-text{font-size: 12px}
+.fs-12{font-size: 12px}
+.shadow-none{box-shadow: none}
+.name{color: #007bff}
+.cursor:hover{color: blue}
+.cursor{cursor: pointer}
+.textarea{resize: none}
+
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+body{background-color: #D32F2F;font-family: 'Calibri', sans-serif !important}
+.mt-100{margin-top: 100px}
+.mb-100{margin-bottom:100px}
+.card{
+    position: relative;
+    z-index: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px solid transparent;
+    border-radius: 0px;
+    color: black !important;
+    overflow-y: scroll;
+    height: 44px;
+    margin-left: 5px;
+}
+
+.card-body{
+    -webkit-box-flex: 1;
+    max-height: 44px;
+}.card .card-title{
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.comment-widgets{
+    position: relative;
+    margin-bottom: 10px
+}
+
+.comment-widgets .comment-row{
+    border-bottom: 1px solid transparent;
+    padding: 10px;
+    padding-top: 5px;
+    margin: 0px;
+}
+
+.font-medium {
+    font-size: 15px;
+    font-weight: 300px;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+.w-100{width: 100% !important}
+
+.m-b-15{
+    margin-bottom: 0px;
+    color: black ;
+    line-height: 12px;
+}
+
+.btn-sm{
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76563rem;
+    line-height: 1.5;
+    border-radius: 1px
+}.btn-cyan{
+    color: #fff;
+    background-color: #27a9e3;
+    border-color: #27a9e3
+}
+
+.btn-cyan:hover{color: #fff;
+    background-color: #1a93ca;
+    border-color: #198bbe
+}.comment-widgets .comment-row:hover{
+    background: rgba(0, 0, 0, 0.05)
+}
+
+#emoji-button {
+    border: none !important;
+    position: absolute;
+    font-size: 1.2rem;
+    background-image: transparent;
+    opacity: 1.5;
+}
+
+#emoji-button:hover{
+    background-color: none !important;
 }
