@@ -13,3 +13,8 @@ run `npm i <package_name>` for each of them.
 Lastly, before starting the server, you should connect to the database, you can configure it in public/db.js.
 
 After that, you can run `node rettiwt_server.js` to start the server.
+
+## public
+This folder contains all the files other than ".ejs" files, including the images, extra ".js" files.
+## views
+This folder contains all the ".ejs" files, which are the templates for the html pages.
