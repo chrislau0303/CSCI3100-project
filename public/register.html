@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Set character encoding and viewport for responsive design -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Set the title and link to external CSS file -->
   <title>Register</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Create a container for the logo and form -->
   <div class="whole">
     <div class="logo">
+      <!-- Insert logo image -->
       <img src="logo.png" alt="Logo">
    </div>
    <div class="container">
+    <!-- Add a heading for the form -->
     <h1>Create your account</h1>
+    <!-- Create a form for user registration, with action and method specified -->
     <form action="/register" method="POST" onsubmit="return register()">
+      <!-- Create input fields for username, email, and password, with placeholders and required attribute -->
       <input type="text" placeholder="Username" name="username" id="username" required>
       <input type="text" placeholder="Email" name="email" id="email" required>
       <input type="password" placeholder="Password (no less than 8 characters including digits)" name="password" id="password" required>
       <input type="password" placeholder="confirm password" name="password2" id="password2" required>
+      <!-- Create a submit button for the form -->
       <button type="submit" value="Submit">Sign up</button>
     </form>
+    <!-- Add a link for users who have already registered -->
     <p>Already have an account? <a href="/login.html">Log in</a></p>
   </div>
+  <!-- Include a JavaScript file for form validation -->
   <script type="text/javascript" src="register.js"></script>
 </body>
+<!-- End of HTML document -->
 </html>

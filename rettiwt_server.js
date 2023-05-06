@@ -25,11 +25,13 @@ app.get('/register', (req, res) => {
 
 const fs = require('fs');
 
+// register page
 app.post('/register', (req, res) => {
     const { username, email, password } = req.body;
     const profilePicPath = '/profile.png';
     const coverPicPath = '/cover.png';
 
+    // Insert new user into database
     var sql = 'INSERT INTO rettiwtUser (username, pw, email, profile_pic, cover_pic) VALUES (?, ?, ?, ?, ?)';
     var values = [username, password, email, profilePicPath, coverPicPath];
 
@@ -44,15 +46,17 @@ app.post('/register', (req, res) => {
 
 });
 
-// login route - search in account database
+// login page
 app.get('/login', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/login.html'))
 })
 
+// login page where the input is invalid
 app.get('/login_wrong', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/login_wrong.html'))
 })
 
+// login page post request
 app.post('/login', (req, res) => {
     const {username_email, password} = req.body
     var type = 'email'
@@ -60,15 +64,16 @@ app.post('/login', (req, res) => {
         type = 'username'
     }
     
+    // search for a match in database
     if(username_email && password) {
         var sql
         var admin = 'false'
         if (type === 'email') {
             sql = 'SELECT * FROM rettiwtUser WHERE email = ?'
-            if (username_email == 'wong@gmail.com') admin = 'true'
+            // if (username_email == 'wong@gmail.com') admin = 'true'
         } else {
             sql = 'SELECT * FROM rettiwtUser WHERE username = ?'
-            if (username_email === 'Chris Wong') admin = 'true'
+            // if (username_email === 'Chris Wong') admin = 'true'
         }
         db.query(sql, username_email, function (err, result) {
             if (err) {
@@ -93,9 +98,10 @@ app.post('/login', (req, res) => {
         res.redirect('/login_wrong.html')
     }
 })
-app.get('/admin', (req, res) => {
-    res.render('admin')
-}) 
+
+// app.get('/admin', (req, res) => {
+//     res.render('admin')
+// }) 
 
 // Render the profile page for a given user ID
 app.get('/profile/:id(\\d+)', (req, res) => {
@@ -149,10 +155,11 @@ app.get('/profile/:id(\\d+)', (req, res) => {
         }
     })
 });
+// profile page post & put request
 app.post('/profile/:id(\\d+)', (req,res) => {
     const type = req.body.method
     const id = req.params.id
-    if (type == 'POST') {
+    if (type == 'POST') { // create new post feature
         const {content, file, hide_post} = req.body
         const time = new Date();
         var hide = null
@@ -178,7 +185,7 @@ app.post('/profile/:id(\\d+)', (req,res) => {
             console.log('Inserted new entry to post database');
         });
 
-    } else if (type == 'PUT') {
+    } else if (type == 'PUT') { // edit post feature
         const postID = req.body.postID
         const {content, hide_post} = req.body
         var hide = 'false'
@@ -194,7 +201,7 @@ app.post('/profile/:id(\\d+)', (req,res) => {
             }
             console.log('Editted entry from post database'); 
         });
-    } else if (type == 'DELETE') {
+    } else if (type == 'DELETE') { // Delete an existing post feature
         const postID = req.body.postID
         var sql = 'DELETE FROM post WHERE post_id = ?';
         db.query(sql, postID, function (err, result) { 
@@ -222,12 +229,9 @@ app.get('/homepage/:id(\\d+)', (req, res) => {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message); return;
             }
-            // console.log(result)
             res.render('homepage', {result, id})
         });
-        //res.render('homepage', {post_result, id})
     });
-    // res.render('homepage', {post_result, id})
 })
 
 // Search page route
@@ -240,18 +244,16 @@ app.get('/search/:id(\\d+)', (req, res) => {
             console.log('[SELECT ERROR] - ', err.message);
             return; 
         }
-        //console.log(result);
         const newresult = result.filter(function checkuser(result) {
             if (result.user_id != id) {
                 return result.user_id
             }
         })
-        //console.log(newresult)
         res.render('search', {newresult, id})
     });
 })
 
-// other profile
+// other profile pages
 app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
     const targetid = req.params.targetid
     const id = req.params.id
@@ -260,10 +262,8 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message); return;
         }
-        //console.log(result)
         if (typeof result[0] !== 'undefined') {
             const targetuser = result[0]
-            // console.log(user)
             var sql = 'SELECT * FROM post WHERE user_id = ?'
             db.query(sql, targetid, function (err, post_result) {
                 if (err) {
@@ -334,6 +334,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
         }
     });
 })
+// other profile page post request - update follow database
 app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
     const {follow} = req.body
     const targetid = req.params.targetid
@@ -382,6 +383,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
         })
     })
 });
+// other profile page post request - update like database
 app.post('/update-like/:id(\\d+)', (req, res) => {
     const {action, post_id} = req.body
     const id = req.params.id
@@ -420,7 +422,7 @@ app.post('/update-like/:id(\\d+)', (req, res) => {
     })
 })
 
-
+// setting page route
 app.get('/settingpage/:id(\\d+)', (req, res) => {
     const id = req.params.id
     var sql = 'SELECT * FROM rettiwtUser WHERE user_id = ?'
@@ -433,6 +435,7 @@ app.get('/settingpage/:id(\\d+)', (req, res) => {
         res.render('settingpage', {user})
     })
 })
+// setting page post request
 app.post('/settingpage/:id(\\d+)', (req, res) => {
     const id = req.params.id
     console.log(req.body)
@@ -475,29 +478,6 @@ db.query(sql, function (err, result) {
     }
     console.log(result)
 })
-
-// var sql
-// var values
-// sql = 'INSERT INTO post (post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
-// values = ['content', '1000-01-01 00:00:00', 7, true]
-
-// db.query(sql, values, function (err, result) {
-//     if (err) {
-//     console.log('[INSERT ERROR] - ', err.message);
-//     return;
-//     }
-//     console.log('Inserted new entry to post database');
-// });
-
-// sql = 'DELETE FROM ';
-// db.query(sql, function (err, result) {
-//     if (err) {
-//         console.log('[DELETE ERROR] - ', err.message);
-//         return;
-//     } else {
-//         console.log('deleted')
-//     }
-// });
 
 
 // start the server

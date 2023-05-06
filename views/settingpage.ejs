@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Set character encoding and page title -->
     <meta charset="UTF-8">
 	<title> Setting</title>
     <link rel="stylesheet" href="/styles_setting.css" >
 </head>
 <body>
+    <!-- Create a container for the sidebar and main content -->
     <div class="container">
+        <!-- Create a sidebar with a logo and links -->
         <div class="sidebar">
             <div class="logo">
                 <img src="/logo.png" alt="Logo">
@@ -19,7 +22,9 @@
                 <li><a href="/login">Sign out</a></li>
           </ul>
         </div>
+        <!-- Create main content area -->
         <div class="main-content">
+            <!-- user information -->
             <div class="coverphoto">
                 <img src="/cover.png">
             </div>
@@ -30,6 +35,7 @@
             <div class="profile-info" style="position:relative; bottom:250px; left:250px">
                 <h1><%= user.username%></h1>
             </div>
+            <!-- set biography and reset password -->
             <div class="setting-info">
                 <form id="reset">
                     <label class="changebio">Biography</label>
@@ -51,7 +57,9 @@
             </div>
         </div>
     </div>
+    <!-- reset password logics -->
     <script>
+        // function to validate the password
         function checkpw(password, password2) {
             var passwordOK = true
             if (password.length < 8) {
@@ -78,10 +86,7 @@
             const password2 = document.getElementById('pw2').value
             const bio = document.getElementById('bio').value
 
-            console.log(password)
-            console.log(password2)
-            console.log(bio)
-
+            // get data from the user
             var data
             if ((password != '' || password2 != '') && bio != '') {
                 if (checkpw(password, password2)) {
@@ -106,6 +111,7 @@
                 }
             }
 
+            // send request to server
             const response = await fetch('/settingpage/<%= user.user_id %>', {
                 method: 'POST',
                 headers: {
@@ -113,7 +119,7 @@
                 },
                 body: JSON.stringify(data),
             });
-            console.log(response)
+
             if (response.ok) {
                 window.location.href = '/settingpage/<%= user.user_id %>'
             }

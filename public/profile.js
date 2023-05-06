@@ -1,8 +1,5 @@
-// const popupcreate = document.querySelector('.popupcreatepost');
-// const popupedit = document.querySelector('.popupeditpost');
-// const postcreatebtn = document.querySelector('#opencreatepage');
+// This file contains functions for the profile page
 const editbtn = document.querySelectorAll('.popupeditbtn');
-// const closeModalButton = document.querySelector('#closecreatepage');
 const closeeditbtn = document.querySelectorAll('.close-button');
 const submitbtn = document.querySelector('#submit');
 const inputElm = document.querySelector('.textarea');
@@ -24,6 +21,7 @@ inputElm.addEventListener('keypress', function(event) {
     }
     })
 
+// submit button
 submitbtn.addEventListener('click', () => {
     let userInput = inputElm.value;
     console.log(userInput);
@@ -36,14 +34,8 @@ submitbtn.addEventListener('click', () => {
     chatarea.insertAdjacentHTML("beforeend", temp);
     inputElm.value = '';
 })
-// postcreatebtn.addEventListener('click', () => {
-//   popupcreate.classList.toggle('show');
-//   popupcreate.style.display = 'block';
-// });
 
-// closeModalButton.addEventListener('click', () => {
-//   popupcreate.style.display = 'none';
-// });
+// edit post button
 editbtn.forEach(btn => {
   btn.addEventListener('click', (event) => {
     event.preventDefault(); // Prevent the default click behavior
@@ -60,20 +52,10 @@ editbtn.forEach(btn => {
   });
 });
 
+// close edit button
 closeeditbtn.forEach(button => {
   button.addEventListener('click', () => {
     const popupedit = button.closest('.popupeditpost');
     popupedit.style.display = 'none';
   });
 });
-
-// window.addEventListener('click', function (event) {
-//   if (event.target === popupcreate) {
-//     popupcreatepost.style.display = 'none';
-//   }
-// });
-// window.addEventListener('click', function (event) {
-//   if (event.target === popupedit) {
-//     popupeditpost.style.display = 'none';
-//   }
-// });

@@ -1,3 +1,5 @@
+// This is the database configurations
+// The database will attempt connect when the server calls this module
 const mysql = require('mysql')
 const db = mysql.createConnection({
     host: 'localhost',
