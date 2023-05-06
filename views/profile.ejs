@@ -42,17 +42,18 @@
             </ul>
         </div>
         <div style="z-index: 5;" class="popupcreatepost" >
-            <button class="close-button" id = "closecreatepage">&times;</button>
+            <button class="close-button" id = "closecreatepage" style="border-radius: 100%;">&times;</button>
             <h1>Create New Post</h1>
+            <br>
             <form action="/profile/<%= user.user_id %>" method="POST">
                 <input type="hidden" id="method" name="method" value="POST">
     
                 <label for="content">Content:</label>
                 <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." required></textarea>
-    
+                <br>
                 <label for="media">Image/Video (optional):</label>
                 <input type="file" id="media" name="media" accept="image/, video/">
-    
+                <br>
                 <label for="hide_post">Hide post?</label>
                 <input type="checkbox" id="hide_post" name="hide_post" value="false">
     
@@ -115,21 +116,18 @@
                             </div>
                             <div class="comment-widgets">
                                 <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"></div>
+                                <div class="d-flex flex-row comment-row">
                                     <div class="comment-text w-100">
                                         <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
                                     </div>
                                 </div> <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row">
-                                    <div class="p-2"></div>
                                     <div class="comment-text active w-100">
                                         <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
                                         <div class="comment-footer"> </div>
                                     </div>
                                 </div> <!-- Comment Row -->
                                 <div class="d-flex flex-row comment-row">
-                                    <div class="p-2"></div>
                                     <div class="comment-text w-100">
                                         <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
                                         <div class="comment-footer"></div>
@@ -143,15 +141,18 @@
                             </div>
                         </div>
                         <div style="z-index: 3;" class="popupeditpost">
-                            <button class="close-button" id="closeedit">&times;</button>
+                            <button class="close-button" id="closeedit" style="border-radius: 100%;">&times;</button>
+                            <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
                             <form id="edit-form-<%= posts[i].post_id %>" action="/profile/<%= user.user_id %>" method="POST">
-                              <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
+                              <br>
                               <input type="hidden" name="method" value="PUT">
                               <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
                               <label for="content">Content:</label>
                               <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." value="<%= posts[i].post_des %>" required></textarea>
+                              <br>
                               <label for="hide_post">Hide post?</label>
                               <input type="checkbox" id="hide_post" name="hide_post" value="<%= posts[i].hide_post %>">
+                              <br>
                               <button type="submit" value="Submit">DONE</button>
                             </form>
                         </div>

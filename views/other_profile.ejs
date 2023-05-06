@@ -11,7 +11,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/styles_post.css">
 </head>
@@ -81,7 +80,6 @@
                     }
                     </script>
                 </form>
-
             </div>
             <div class="posts">
                 <% for (let i = 0; i < posts.length; i++) { %>
@@ -89,66 +87,57 @@
                     <div class="post-header">
                         <h2>Posted on <%= posts[i].post_time %></h2>
                     </div>
-                    <div class="post-footer">                  
-                        <form action="/other_profile/<%= targetuser.user_id%>" method="POST">
-                            <div class="heart-btn">
-                                <div class="content">
-                                  <span class="heart"></span>
-                                  <span class="like"></span>
-                                  <span class="numb">12</span>
-                                </div>
-                            </div>
-                              
-                            <script>
-                                $(document).ready(function() {
-                                    $(".content").click(function() {
-                                        var post = $(this).closest('.post');
-                                        $(this).toggleClass("heart-active");
-                                        $(this).find(".heart").toggleClass("heart-active");
-                                        
-                                        // Check if heart animation class is added or removed correctly
-                                        var heartActive = $(this).hasClass("heart-active");
-                                        var heartEl = $(this).find(".heart");
-                                        var heartAnimationActive = heartEl.hasClass("heart-active");
-                                        
-                                        if (heartActive && !heartAnimationActive) {
-                                            heartEl.addClass("heart-active");
-                                        } else if (!heartActive && heartAnimationActive) {
-                                            heartEl.removeClass("heart-active");
-                                        }
-                                        
-                                        // Parse the like count as a number even if it doesn't have a before pseudo-element
-                                        var countText = $(this).find(".numb").text().trim();
-                                        var count = countText ? parseInt(countText) : 0;
-                                        
-                                        if ($(this).hasClass("heart-active")) {
-                                            count++;
-                                        } else {
-                                            count--;
-                                        }
-                                        
-                                        // Update the like count text only if it's not empty or null and doesn't have a before pseudo-element
-                                        if (countText && !$(this).find(".numb:before").length) {
-                                            $(this).find(".numb").text(count);
-                                        }
-                                    });
-                                });
-                            </script>
-                        </form>
-                    </div>
                     <p><%= posts[i].post_des %></p>
+                    <div class="post-footer">               
+                        <div class="heart-btn">
+                            <div class="content" id="<%=posts[i].post_id%>">
+                                <input type="hidden" id="input<%=posts[i].post_id%>" value="<%=liked[i]%>">
+                                <span class="heart"></span>
+                                <span class="numb"><%= likes[i] %></span>
+                            </div>
+                        </div>
+                        <div style="z-index: 1;" class="card">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Comments</h4>
+                            </div>
+                            <div class="comment-widgets">
+                                <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="comment-text w-100">
+                                        <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                                    </div>
+                                </div> <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="comment-text active w-100">
+                                        <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                                        <div class="comment-footer"> </div>
+                                    </div>
+                                </div> <!-- Comment Row -->
+                                <div class="d-flex flex-row comment-row">
+                                    <div class="comment-text w-100">
+                                        <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
+                                        <div class="comment-footer"></div>
+                                    </div>
+                                </div>
+                            </div> <!-- Card -->
+                            <div class="p-2 card-footer">
+                                <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                                <button id = "emoji-button" >&#128578;</button>
+                                <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
                 <% } %>
             </div>
         </div>
     </div>
     <script>
-        const form = document.getElementById('update-follow')
+        const update_form = document.getElementById('update-follow')
         const follow= document.getElementById('follow')
         const unfollow = document.getElementById('unfollow')
 
-        form.addEventListener('submit', async (event) => {
+        update_form.addEventListener('submit', async (event) => {
             event.preventDefault();
         
             var temp;
@@ -162,7 +151,7 @@
             follow: temp,
             };
 
-            const response = await fetch('/update/<%= targetuser.user_id%>/<%= id %>', {
+            const response = await fetch('/update-follow/<%= targetuser.user_id%>/<%= id %>', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -181,6 +170,66 @@
                 follower.innerHTML = result.followers + ' Followers';
             }
         });
+    </script>
+    <script>
+        const likebtn = document.getElementsByClassName('content')
+        const heart = document.getElementsByClassName('heart')
+        for (let i = 0; i < likebtn.length; i++) {
+            var input = document.getElementById('input' + likebtn[i].id)
+            if (input.value == 'true') {
+                likebtn[i].classList.add("heart-active")
+                heart[i].classList.add("heart-active")
+            }
+        }
+
+        $(document).ready(function() {
+            $(".content").click(async function() {
+                var post = $(this).closest('.post');
+                $(this).toggleClass("heart-active");
+                $(this).find(".heart").toggleClass("heart-active");
+                
+                // Check if heart animation class is added or removed correctly
+                var heartActive = $(this).hasClass("heart-active");
+                var heartEl = $(this).find(".heart");
+                var heartAnimationActive = heartEl.hasClass("heart-active");
+                
+                if (heartActive && !heartAnimationActive) {
+                    heartEl.addClass("heart-active");
+                } else if (!heartActive && heartAnimationActive) {
+                    heartEl.removeClass("heart-active");
+                }
+
+                var temp
+                if ($(this).hasClass("heart-active")) {
+                    temp = 'like'
+                } else {
+                    temp = 'unlike'
+                }
+                data = {
+                    action: temp,
+                    post_id: this.id
+                }
+
+                const response = await fetch('/update-like/<%= id %>', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    // // Update the relevant portions of the page with the new data
+                    $(this).find(".numb").text(result.likes);
+                }
+            });
+        });
+    </script>
+    <script>
+        const comment = document.getElementById('')
+        
     </script>
 </body>
 </html>
