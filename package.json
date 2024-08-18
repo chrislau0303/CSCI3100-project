@@ -4,7 +4,7 @@
   "description": "This project is a simplified social media platform for users to share and interact with others. It allows users to follow each other and post, edit, delete, like, comment posts. The server runs on local host.",
   "main": "rettiwt_server.js",
   "scripts": {
-    "start": "ndoe rettiwt_server.js",
+    "start": "node rettiwt_server.js",
     "dev": "nodemon rettiwt_server.js"
   },
   "keywords": [],
