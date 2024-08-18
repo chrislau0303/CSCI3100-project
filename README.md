@@ -7,7 +7,7 @@ You will need to download nodejs first before you can run the server, you can do
 After downloading nodejs, there are a few dependencies to download using npm.    
 First, initialize the package.   
 run `npm init -y`. 
-Then download the dependencies, which are "body-parser", "ejs", "express" and "mysql".  
+Then download the dependencies, which are "body-parser", "ejs", "express" and "mysql2".  
 run `npm i <package_name>` for each of them.
 
 Lastly, before starting the server, you should connect to the database, you can configure it in public/db.js.

@@ -1,10 +1,10 @@
 // This is the database configurations
 // The database will attempt connect when the server calls this module
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'yourdatabasepassword',
+    password: 'Abcd0303',
     database: 'rettiwt'
 })
 
