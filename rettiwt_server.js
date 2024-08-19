@@ -76,7 +76,7 @@ app.post('/login', (req, res) => {
                     if (admin == 'true') {
                         res.redirect('/admin/')
                     } else {
-                        res.redirect('/profile/' + result[0].user_id)
+                        res.redirect('/homepage/' + result[0].user_id)
                     }
                 } else {
                     res.render('login', { error: 'true' });
@@ -105,14 +105,14 @@ app.get('/profile/:id(\\d+)', (req, res) => {
         }
         if (result.length > 0) {
             const user = result[0]
-            var sql = 'SELECT * FROM post WHERE user_id = ?'
+            var sql = 'SELECT * FROM Post WHERE user_id = ?'
             db.query(sql, id, function (err, post_result) {
                 if (err) {
                     console.log('[SELECT ERROR] - ', err.message)
                     return
                 }
                 var followers = 0
-                var sql = 'SELECT * FROM followers WHERE user_id = ?'
+                var sql = 'SELECT * FROM Following WHERE user_id = ?'
                 db.query(sql, id, function (err, result) {
                     if (err) {
                         console.log('[SELECT ERROR] - ', err.message)
@@ -120,7 +120,7 @@ app.get('/profile/:id(\\d+)', (req, res) => {
                     }
                     followers = result.length
                     var following = 0
-                    var sql = 'SELECT * FROM followers WHERE follower_id = ?'
+                    var sql = 'SELECT * FROM Following WHERE follower_id = ?'
                     db.query(sql, id, function (err, result) {
                         if (err) {
                             console.log('[SELECT ERROR] - ', err.message)
@@ -161,10 +161,10 @@ app.post('/profile/:id(\\d+)', (req,res) => {
         var sql
         var values
         if (typeof file !== 'undefined') {
-            sql = 'INSERT INTO post (media, post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?, ?);'
+            sql = 'INSERT INTO Post (media, post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?, ?);'
             values = [file, content, time, id, hide];
         } else {
-            sql = 'INSERT INTO post (post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
+            sql = 'INSERT INTO Post (post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
             values = [content, time, id, hide]
         }
 
@@ -173,7 +173,7 @@ app.post('/profile/:id(\\d+)', (req,res) => {
             console.log('[INSERT ERROR] - ', err.message);
             return;
             }
-            console.log('Inserted new entry to post database');
+            console.log('Inserted new entry to Post database');
         });
 
     } else if (type == 'PUT') { // edit post feature
@@ -183,24 +183,24 @@ app.post('/profile/:id(\\d+)', (req,res) => {
         if (typeof hide_post !== 'undefined') {
             hide = 'true'
         }
-        var sql= 'UPDATE post SET post_des = ?, hide_post = ? WHERE post_id = ?';
+        var sql= 'UPDATE Post SET post_des = ?, hide_post = ? WHERE post_id = ?';
         var values = [content, hide_post, postID];
         db.query(sql, values, function (err, result) {
             if (err) {
                 console.log('[UPDATE ERROR] - ', err.message);
                 return;
             }
-            console.log('Editted entry from post database'); 
+            console.log('Editted entry from Post database'); 
         });
     } else if (type == 'DELETE') { // Delete an existing post feature
         const postID = req.body.postID
-        var sql = 'DELETE FROM post WHERE post_id = ?';
+        var sql = 'DELETE FROM Post WHERE post_id = ?';
         db.query(sql, postID, function (err, result) { 
             if (err) {
                 console.log('[DELETE ERROR] - ', err.message);
                 return; 
             }
-            console.log('Deleted entry from post database');
+            console.log('Deleted entry from Post database');
         });
     }
     res.redirect('/profile/' + id)
@@ -210,12 +210,17 @@ app.post('/profile/:id(\\d+)', (req,res) => {
 app.get('/homepage/:id(\\d+)', (req, res) => {
     const id = req.params.id
     
-    var sql = 'SELECT * FROM post a INNER JOIN followers b ON b.follower_id = ? AND b.user_ID = a.user_ID'; 
+    var sql = `SELECT * FROM Post 
+        INNER JOIN Following ON Following.following_user_id = Post.user_id
+        WHERE Following.user_id = ?`; 
     db.query(sql, id, function (err, post_result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message); return;
         }
-        var sql = 'SELECT * FROM Account a INNER JOIN post b INNER JOIN followers c ON c.follower_id = ? AND c.user_ID = b.user_ID AND a.user_id = b.user_id'; 
+        var sql = `SELECT * FROM Account 
+            INNER JOIN Post ON Account.user_id = Post.user_id
+            INNER JOIN Following ON Following.following_user_id = Post.user_id
+            WHERE Following.user_id = ?`; 
         db.query(sql, id, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message); return;
@@ -255,7 +260,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
         }
         if (result.length > 0) {
             const targetuser = result[0]
-            var sql = 'SELECT * FROM post WHERE user_id = ?'
+            var sql = 'SELECT * FROM Post WHERE user_id = ?'
             db.query(sql, targetid, function (err, post_result) {
                 if (err) {
                     console.log('[SELECT ERROR] - ', err.message)
@@ -273,7 +278,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                 });
                 var follow = false
                 var followers = 0
-                var sql = 'SELECT * FROM followers WHERE user_id = ?'
+                var sql = 'SELECT * FROM Following WHERE user_id = ?'
                 db.query(sql, targetid, function (err, result) {
                     if (err) {
                         console.log('[SELECT ERROR] - ', err.message)
@@ -287,7 +292,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                         }
                     }
                     var following = 0
-                    var sql = 'SELECT * FROM followers WHERE follower_id = ?'
+                    var sql = 'SELECT * FROM Following WHERE follower_id = ?'
                     db.query(sql, targetid, function (err, result) {
                         if (err) {
                             console.log('[SELECT ERROR] - ', err.message)
@@ -341,7 +346,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
             }
         });
     } else if (follow == 'unfollow') {
-        var sql = 'DELETE FROM followers WHERE user_id = ? AND follower_id = ?';
+        var sql = 'DELETE FROM Following WHERE user_id = ? AND follower_id = ?';
         var values = [targetid, id]
         db.query(sql, values, function (err, result) { 
             if (err) {
@@ -352,7 +357,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
     }
 
     var followers = 0
-    var sql = 'SELECT * FROM followers WHERE user_id = ?'
+    var sql = 'SELECT * FROM Following WHERE user_id = ?'
     db.query(sql, targetid, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message)
@@ -360,7 +365,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
         }
         followers = result.length
         var following = 0
-        var sql = 'SELECT * FROM followers WHERE follower_id = ?'
+        var sql = 'SELECT * FROM Following WHERE follower_id = ?'
         db.query(sql, targetid, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message)
