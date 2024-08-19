@@ -4,67 +4,53 @@
     <!-- Set character encoding and page title -->
 	<meta charset="UTF-8">
     <title>Search</title>
-    <!-- Import external stylesheets and scripts -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Import stylesheet -->
     <link rel="stylesheet" href="/styles_search.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/styles_post.css">
 </head>
 <body>
-    <!-- Create a container for the sidebar and main content -->
-    <div class="container">
-        <!-- Create a sidebar with a logo and links -->
-        <div class="sidebar">
-            <div class="logo">
-                <img src="/logo.png" alt="Logo">
-            </div>
-            <ul>
-                <li><a href="/homepage/<%= id %>">Home</a></li>
-                <li><a href="#">Search</a></li>
-                <li><a href="/profile/<%= id%>">My Profile</a></li>
-                <li><a href="/settingpage/<%= id %>">Settings</a></li>
-                <li><a href="/login">Sign out</a></li>
-            </ul>
+    <!-- Create a sidebar with a logo and links -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/logo.png" alt="Logo">
         </div>
-        <!-- Create main content area -->
-        <div class="main-content">
-            <!-- Create search form -->
-            <div class="search-container">
-                <h1>Looking For Others?</h1>
-                <form>
-                    <input type="text" id="username" name="username" placeholder="Enter the username" required>
-                    <button type="submit">
-                        <i class="fa fa-search"></i>   
-                    </button>
-                </form>
-            </div>
-            <!-- Display search results using a loop-->
-            <div class="search-result">
-                <ul>
-                    <% for (let i = 0; i < newresult.length; i++) { %>
-                    <li>
-                        <!-- Create link to user's profile page -->
-                        <a href="/other_profile/<%= newresult[i].user_id %>/<%= id %>">
-                            <!-- Display user's profile photo and username -->
-                            <div class="result-photo">
-                                <img src="/profile.png" alt="Profile Photo">
-                            </div>
-                            <div class="result-name">
-                                <h2><%= newresult[i].username %></h2>
-                            </div>
-                        </a>
-                    </li>
-                    <% } %>
-                </ul>
-            </div>
+        <ul>
+            <li><a href="/homepage/<%= id %>">Home</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="/profile/<%= id%>">My Profile</a></li>
+            <li><a href="/settingpage/<%= id %>">Settings</a></li>
+            <li><a href="/login">Sign out</a></li>
+        </ul>
+    </div>
+    <!-- Create main content area -->
+    <div class="main-content">
+        <!-- Create search form -->
+        <div class="search-container">
+            <h1>Looking For Others?</h1>
+            <form>
+                <input type="text" id="username" name="username" placeholder="Enter the username" required>
+                <button type="submit">
+                    <i class="fa fa-search"></i>   
+                </button>
+            </form>
+        </div>
+        <!-- Display search results using a loop-->
+        <div class="search-result">
+            <ul>
+                <% for (let i = 0; i < newresult.length; i++) { %>
+                <li>
+                    <!-- Create link to user's profile page -->
+                    <a href="/other_profile/<%= newresult[i].user_id %>/<%= id %>">
+                        <!-- Display user's profile photo and username -->
+                        <div class="result-photo">
+                            <img src="/profile.png" alt="Profile Photo">
+                        </div>
+                        <div class="result-name">
+                            <h2><%= newresult[i].username %></h2>
+                        </div>
+                    </a>
+                </li>
+                <% } %>
+            </ul>
         </div>
     </div>
 </body>
