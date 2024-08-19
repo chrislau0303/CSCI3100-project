@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Set character encoding and page title -->
+    <meta charset="UTF-8">
+	<title> Homepage</title>
+    <!-- Link to external CSS files -->
+    <link rel="stylesheet" href="../public/styles_homepage.css">
+    <!-- <link rel="stylesheet" href="../public/styles_post.css"> -->
+</head>
+<body>
+	<!-- Create a container for the sidebar and main content -->
+    <!-- Create a sidebar with a logo and links -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../public/logo.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Sign out</a></li>
+        </ul>
+    </div>
+    <!-- Create a main content area that displays posts -->
+    <div class="main-content">
+        <div class="post">
+            <!-- Create a header for the post with user avatar, username, and post time -->
+            <div class="post-header">
+                <img src="../public/profile.png" alt="User Avatar">
+                <div class="post-meta">
+                    <h2><a href="#">other username</a></h2>
+                    <p>&bull;posted on 15/8/2024</p>
+                </div>
+            </div>
+            <!-- Create a content area for the post description -->
+            <div class="post-content">
+                <p>post description</p>
+            </div>
+            <!-- Create a footer for the post with buttons to like and share -->
+            <div class="post-footer">
+                <a href="#">Like</a>
+                <a href="#">Share</a>
+            </div>
+            <!-- Create a card for displaying comments -->
+            <div style="z-index: 0;" class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Comments</h4>
+                </div>
+                <div class="comment-widgets">
+                    <!-- Create a row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="p-2"></div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                        </div>
+                    </div>
+                    <!-- Create another row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"></div>
+                        <div class="comment-text active w-100">
+                            <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                            <div class="comment-footer"> </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Create a footer for the comment card with a textarea for entering a comment and buttons to submit or cancel -->
+                <div class="p-2 card-footer">
+                    <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                    <button id = "emoji-button" >&#128578;</button>
+                    <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="post">
+            <!-- Create a header for the post with user avatar, username, and post time -->
+            <div class="post-header">
+                <img src="../public/profile.png" alt="User Avatar">
+                <div class="post-meta">
+                    <h2><a href="#">other username</a></h2>
+                    <p>&bull;posted on 15/8/2024</p>
+                </div>
+            </div>
+            <!-- Create a content area for the post description -->
+            <div class="post-content">
+                <p>post description</p>
+            </div>
+            <!-- Create a footer for the post with buttons to like and share -->
+            <div class="post-footer">
+                <a href="#">Like</a>
+                <a href="#">Share</a>
+            </div>
+            <!-- Create a card for displaying comments -->
+            <div style="z-index: 0;" class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Comments</h4>
+                </div>
+                <div class="comment-widgets">
+                    <!-- Create a row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="p-2"></div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                        </div>
+                    </div>
+                    <!-- Create another row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"></div>
+                        <div class="comment-text active w-100">
+                            <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                            <div class="comment-footer"> </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Create a footer for the comment card with a textarea for entering a comment and buttons to submit or cancel -->
+                <div class="p-2 card-footer">
+                    <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                    <button id = "emoji-button" >&#128578;</button>
+                    <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="post">
+            <!-- Create a header for the post with user avatar, username, and post time -->
+            <div class="post-header">
+                <img src="../public/profile.png" alt="User Avatar">
+                <div class="post-meta">
+                    <h2><a href="#">other username</a></h2>
+                    <p>&bull;posted on 15/8/2024</p>
+                </div>
+            </div>
+            <!-- Create a content area for the post description -->
+            <div class="post-content">
+                <p>post description</p>
+            </div>
+            <!-- Create a footer for the post with buttons to like and share -->
+            <div class="post-footer">
+                <a href="#">Like</a>
+                <a href="#">Share</a>
+            </div>
+            <!-- Create a card for displaying comments -->
+            <div style="z-index: 0;" class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Comments</h4>
+                </div>
+                <div class="comment-widgets">
+                    <!-- Create a row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="p-2"></div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                        </div>
+                    </div>
+                    <!-- Create another row for a comment with author name and comment text -->
+                    <div class="d-flex flex-row comment-row">
+                        <div class="p-2"></div>
+                        <div class="comment-text active w-100">
+                            <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                            <div class="comment-footer"> </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Create a footer for the comment card with a textarea for entering a comment and buttons to submit or cancel -->
+                <div class="p-2 card-footer">
+                    <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                    <button id = "emoji-button" >&#128578;</button>
+                    <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Link to external JavaScript file for handling profile functionality -->
+    <script src="/profile.js"></script>
+</body>
+</html>
+<!-- End of HTML document -->

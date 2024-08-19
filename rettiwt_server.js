@@ -23,7 +23,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/register.html'))
 })
 
-const fs = require('fs');
+// const fs = require('fs');
 
 // register page
 app.post('/register', (req, res) => {
@@ -32,7 +32,7 @@ app.post('/register', (req, res) => {
     const coverPicPath = '/cover.png';
 
     // Insert new user into database
-    var sql = 'INSERT INTO rettiwtUser (username, pw, email, profile_pic, cover_pic) VALUES (?, ?, ?, ?, ?)';
+    var sql = 'INSERT INTO Account (username, password, email, profile_pic, cover_photo) VALUES (?, ?, ?, ?, ?)';
     var values = [username, password, email, profilePicPath, coverPicPath];
 
     db.query(sql, values, function (err, result) {
@@ -43,59 +43,50 @@ app.post('/register', (req, res) => {
         console.log('Inserted new entry to database');
         res.redirect('/login');
     });
-
 });
 
 // login page
 app.get('/login', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './public/login.html'))
-})
-
-// login page where the input is invalid
-app.get('/login_wrong', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './public/login_wrong.html'))
+    res.render('login', {error: null});
 })
 
 // login page post request
 app.post('/login', (req, res) => {
     const {username_email, password} = req.body
-    var type = 'email'
-    if (username_email.indexOf("@") === -1) {
-        type = 'username'
-    }
+    let type = username_email.includes("@") ? 'email' : 'username';
     
     // search for a match in database
     if(username_email && password) {
-        var sql
-        var admin = 'false'
+        let sql
+        let admin = 'false'
         if (type === 'email') {
-            sql = 'SELECT * FROM rettiwtUser WHERE email = ?'
+            sql = 'SELECT * FROM Account WHERE email = ?'
             // if (username_email == 'wong@gmail.com') admin = 'true'
         } else {
-            sql = 'SELECT * FROM rettiwtUser WHERE username = ?'
+            sql = 'SELECT * FROM Account WHERE username = ?'
             // if (username_email === 'Chris Wong') admin = 'true'
         }
         db.query(sql, username_email, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message)
-                return
+                return res.send('<script>alert("Database error. Please try again."); window.location.href="/login";</script>');
             }
-            if (typeof result[0] !== 'undefined') {
-                if (result[0].pw === password) {
+            if (result.length > 0) {
+                if (result[0].password === password) {
                     if (admin == 'true') {
                         res.redirect('/admin/')
                     } else {
                         res.redirect('/profile/' + result[0].user_id)
                     }
                 } else {
-                    res.redirect('/login_wrong.html')
+                    res.render('login', { error: 'true' });
                 }
             } else {
-                res.redirect('/login_wrong.html')
+                res.render('login', { error: 'true' });
             }
         })
     } else {
-        res.redirect('/login_wrong.html')
+        res.render('login', { error: 'true' });
     }
 })
 
@@ -106,13 +97,13 @@ app.post('/login', (req, res) => {
 // Render the profile page for a given user ID
 app.get('/profile/:id(\\d+)', (req, res) => {
     const id = req.params.id;
-    var sql = 'SELECT * FROM rettiwtUser WHERE user_id = ?'
+    var sql = 'SELECT * FROM Account WHERE user_id = ?'
     db.query(sql, id, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message)
             return
         }
-        if (typeof result[0] !== 'undefined') {
+        if (result.length > 0) {
             const user = result[0]
             var sql = 'SELECT * FROM post WHERE user_id = ?'
             db.query(sql, id, function (err, post_result) {
@@ -224,7 +215,7 @@ app.get('/homepage/:id(\\d+)', (req, res) => {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message); return;
         }
-        var sql = 'SELECT * FROM rettiwtUser a INNER JOIN post b INNER JOIN followers c ON c.follower_id = ? AND c.user_ID = b.user_ID AND a.user_id = b.user_id'; 
+        var sql = 'SELECT * FROM Account a INNER JOIN post b INNER JOIN followers c ON c.follower_id = ? AND c.user_ID = b.user_ID AND a.user_id = b.user_id'; 
         db.query(sql, id, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message); return;
@@ -238,7 +229,7 @@ app.get('/homepage/:id(\\d+)', (req, res) => {
 app.get('/search/:id(\\d+)', (req, res) => {
     const id = req.params.id
     const username = req.query.username + '%'
-    var sql = 'SELECT * FROM rettiwtUser WHERE username LIKE ?';
+    var sql = 'SELECT * FROM Account WHERE username LIKE ?';
     db.query(sql, username, function (err, result) { 
         if (err) {
             console.log('[SELECT ERROR] - ', err.message);
@@ -257,12 +248,12 @@ app.get('/search/:id(\\d+)', (req, res) => {
 app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
     const targetid = req.params.targetid
     const id = req.params.id
-    var sql = 'SELECT * FROM rettiwtUser WHERE user_id = ?';
+    var sql = 'SELECT * FROM Account WHERE user_id = ?';
     db.query(sql, targetid, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message); return;
         }
-        if (typeof result[0] !== 'undefined') {
+        if (result.length > 0) {
             const targetuser = result[0]
             var sql = 'SELECT * FROM post WHERE user_id = ?'
             db.query(sql, targetid, function (err, post_result) {
@@ -425,7 +416,7 @@ app.post('/update-like/:id(\\d+)', (req, res) => {
 // setting page route
 app.get('/settingpage/:id(\\d+)', (req, res) => {
     const id = req.params.id
-    var sql = 'SELECT * FROM rettiwtUser WHERE user_id = ?'
+    var sql = 'SELECT * FROM Account WHERE user_id = ?'
     db.query(sql, id, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message); 
@@ -439,18 +430,18 @@ app.get('/settingpage/:id(\\d+)', (req, res) => {
 app.post('/settingpage/:id(\\d+)', (req, res) => {
     const id = req.params.id
     console.log(req.body)
-    const pw = req.body.pw
+    const password = req.body.password
     const bio = req.body.bio
     var sql
     var values
-    if (typeof pw !== 'undefined' && typeof bio !== 'undefined') {
-        sql = 'UPDATE rettiwtUser SET bio = ?, pw = ? WHERE user_id = ?';
-        values = [bio, pw, id]
-    } else if (typeof pw !== 'undefined') {
-        sql = 'UPDATE rettiwtUser SET pw = ? WHERE user_id = ?';
-        var values = [pw, id];
+    if (typeof password !== 'undefined' && typeof bio !== 'undefined') {
+        sql = 'UPDATE Account SET bio = ?, password = ? WHERE user_id = ?';
+        values = [bio, password, id]
+    } else if (typeof password !== 'undefined') {
+        sql = 'UPDATE Account SET password = ? WHERE user_id = ?';
+        var values = [password, id];
     } else if (typeof bio !== 'undefined'){
-        sql = 'UPDATE rettiwtUser SET bio = ? WHERE user_id = ?';
+        sql = 'UPDATE Account SET bio = ? WHERE user_id = ?';
         var values = [bio, id];
     }
     console.log(sql)
@@ -470,7 +461,7 @@ app.all('*', (req, res) => {
 })
 
 // Show all user objects
-var sql = 'SELECT * FROM rettiwtUser'
+var sql = 'SELECT * FROM Account'
 db.query(sql, function (err, result) {
     if (err) {
         console.log('[SELECT ERROR] - ', err.message)
