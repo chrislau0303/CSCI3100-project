@@ -18,22 +18,21 @@ app.set('view engine', 'ejs');
 // Serve static files from the public directory
 app.use(express.static('public'));
 
+// const fs = require('fs');
+
 // register route - insert new account into database
 app.get('/register', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/register.html'))
 })
 
-// const fs = require('fs');
-
-// register page
+// register post request
 app.post('/register', (req, res) => {
     const { username, email, password } = req.body;
     const profilePicPath = '/profile.png';
-    const coverPicPath = '/cover.png';
 
     // Insert new user into database
-    var sql = 'INSERT INTO Account (username, password, email, profile_pic, cover_photo) VALUES (?, ?, ?, ?, ?)';
-    var values = [username, password, email, profilePicPath, coverPicPath];
+    var sql = 'INSERT INTO Account (username, password, email, profile_pic) VALUES (?, ?, ?, ?)';
+    var values = [username, password, email, profilePicPath];
 
     db.query(sql, values, function (err, result) {
         if (err) {
@@ -95,57 +94,93 @@ app.post('/login', (req, res) => {
 // }) 
 
 // Render the profile page for a given user ID
+// app.get('/profile/:id(\\d+)', (req, res) => {
+//     const id = req.params.id;
+//     var sql = 'SELECT * FROM Account WHERE user_id = ?'
+//     db.query(sql, id, function (err, result) {
+//         if (err) {
+//             console.log('[SELECT ERROR] - ', err.message)
+//             return
+//         }
+//         if (result.length > 0) {
+//             const user = result[0]
+//             var sql = 'SELECT * FROM Post WHERE user_id = ?'
+//             db.query(sql, id, function (err, post_result) {
+//                 if (err) {
+//                     console.log('[SELECT ERROR] - ', err.message)
+//                     return
+//                 }
+//                 var followers = 0
+//                 var sql = 'SELECT * FROM Following WHERE following_user_id = ?'
+//                 db.query(sql, id, function (err, result) {
+//                     if (err) {
+//                         console.log('[SELECT ERROR] - ', err.message)
+//                         return
+//                     }
+//                     followers = result.length
+//                     var following = 0
+//                     var sql = 'SELECT * FROM Following WHERE user_id = ?'
+//                     db.query(sql, id, function (err, result) {
+//                         if (err) {
+//                             console.log('[SELECT ERROR] - ', err.message)
+//                             return
+//                         }
+//                         following = result.length
+//                         var temp =[]
+//                         if (typeof post_result[0] !== 'undefined') {
+//                             temp = post_result
+//                         }
+//                         const posts = temp.map(post => {
+//                             return {
+//                                 ...post,
+//                                 post_time: formatDate(post.post_time)
+//                             };
+//                         });
+//                         res.render('profile', { user, posts, id, followers, following})
+//                     })
+//                 })
+//             })
+//         } else {
+//             res.status(404).send('User not found')
+//         }
+//     })
+// });
 app.get('/profile/:id(\\d+)', (req, res) => {
     const id = req.params.id;
-    var sql = 'SELECT * FROM Account WHERE user_id = ?'
-    db.query(sql, id, function (err, result) {
+
+    const sql = `
+        SELECT 
+            Post.*, 
+            Account.*, 
+            (SELECT COUNT(*) FROM Following WHERE following_user_id = ?) AS followers, 
+            (SELECT COUNT(*) FROM Following WHERE user_id = ?) AS following 
+        FROM 
+            Account 
+        LEFT JOIN 
+            Post ON Account.user_id = Post.user_id 
+        WHERE 
+            Account.user_id = ?`;
+
+    db.query(sql, [id, id, id], function (err, result) {
         if (err) {
-            console.log('[SELECT ERROR] - ', err.message)
-            return
+            console.log('[SELECT ERROR] - ', err.message);
+            return;
         }
         if (result.length > 0) {
-            const user = result[0]
-            var sql = 'SELECT * FROM Post WHERE user_id = ?'
-            db.query(sql, id, function (err, post_result) {
-                if (err) {
-                    console.log('[SELECT ERROR] - ', err.message)
-                    return
-                }
-                var followers = 0
-                var sql = 'SELECT * FROM Following WHERE user_id = ?'
-                db.query(sql, id, function (err, result) {
-                    if (err) {
-                        console.log('[SELECT ERROR] - ', err.message)
-                        return
-                    }
-                    followers = result.length
-                    var following = 0
-                    var sql = 'SELECT * FROM Following WHERE follower_id = ?'
-                    db.query(sql, id, function (err, result) {
-                        if (err) {
-                            console.log('[SELECT ERROR] - ', err.message)
-                            return
-                        }
-                        following = result.length
-                        var temp =[]
-                        if (typeof post_result[0] !== 'undefined') {
-                            temp = post_result
-                        }
-                        const posts = temp.map(post => {
-                            return {
-                                ...post,
-                                post_time: formatDate(post.post_time)
-                            };
-                        });
-                        res.render('profile', { user, posts, id, followers, following})
-                    })
-                })
-            })
+            const user = result[0];
+            const posts = result.map(post => ({
+                ...post,
+                post_time: formatDate(post.post_time)
+            })).filter(post => post.post_id !== null); // Exclude rows without posts
+
+            console.log(user)
+            res.render('profile', { user, posts, id, followers: user.followers, following: user.following });
         } else {
-            res.status(404).send('User not found')
+            res.status(404).send('User not found');
         }
-    })
+    });
 });
+
 // profile page post & put request
 app.post('/profile/:id(\\d+)', (req,res) => {
     const type = req.body.method
@@ -161,10 +196,10 @@ app.post('/profile/:id(\\d+)', (req,res) => {
         var sql
         var values
         if (typeof file !== 'undefined') {
-            sql = 'INSERT INTO Post (media, post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?, ?);'
+            sql = 'INSERT INTO Post (media, description, post_time, user_id, hide_post) VALUES (?, ?, ?, ?, ?);'
             values = [file, content, time, id, hide];
         } else {
-            sql = 'INSERT INTO Post (post_des, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
+            sql = 'INSERT INTO Post (description, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
             values = [content, time, id, hide]
         }
 
@@ -183,7 +218,7 @@ app.post('/profile/:id(\\d+)', (req,res) => {
         if (typeof hide_post !== 'undefined') {
             hide = 'true'
         }
-        var sql= 'UPDATE Post SET post_des = ?, hide_post = ? WHERE post_id = ?';
+        var sql= 'UPDATE Post SET description = ?, hide_post = ? WHERE post_id = ?';
         var values = [content, hide_post, postID];
         db.query(sql, values, function (err, result) {
             if (err) {

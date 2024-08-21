@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Profile Page</title>
     <link rel="stylesheet" href="/styles_profile.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.0.3/dist/index.min.js"></script> -->
 </head>
 <body>
     <!-- <div> 
@@ -29,27 +29,26 @@
             right:15px;bottom: 15px;width:1000px;height: 600px;background-color: transparent; z-index: 5;"></iframe>
     </div> -->
     <!-- Create a container for the sidebar and main content -->
-    <div class="container" id = "containerid">
         <!-- Create a sidebar with a logo and links -->
-        <div class="sidebar">
-            <div class="logo">
-                <img src="/logo.png" alt="Logo">
-            </div>
-            <ul>
-                <li><a class="createpostbtn" id="opencreatepage">New Post+</a></li>
-                <li><a href="/homepage/<%= user.user_id %>">Home</a></li>
-                <li><a href="/search/<%= user.user_id %>">Search</a></li>
-                <li><a href="#">My Profile</a></li>
-                <li><a href="/settingpage/<%= user.user_id %>">Settings</a></li>
-                <li><a href="/login">Sign out</a></li>
-            </ul>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/logo.png" alt="Logo">
         </div>
+        <ul>
+            <li><a class="createpostbtn" id="opencreatepage">New Post+</a></li>
+            <li><a href="/homepage/<%= id %>">Home</a></li>
+            <li><a href="/search/<%= id %>">Search</a></li>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="/settingpage/<%= id %>">Settings</a></li>
+            <li><a href="/login">Sign out</a></li>
+        </ul>
+    </div>
         <!-- Create a button for creating a new post -->
-        <div style="z-index: 5;" class="popupcreatepost" >
+        <div class="popupcreatepost" >
             <button class="close-button" id = "closecreatepage" style="border-radius: 100%;">&times;</button>
-            <h1>Create New Post</h1>
+            <h1>New Post</h1>
             <br>
-            <form action="/profile/<%= user.user_id %>" method="POST">
+            <form action="/profile/<%= id %>" method="POST">
                 <input type="hidden" id="method" name="method" value="POST">
     
                 <label for="content">Content:</label>
@@ -60,7 +59,7 @@
                 <br>
                 <label for="hide_post">Hide post?</label>
                 <input type="checkbox" id="hide_post" name="hide_post" value="false">
-    
+                <br>
                 <button type="submit" value="Submit">POST</button>
             </form>
         </div>
@@ -74,104 +73,102 @@
             closeModalButton.addEventListener('click', () => {
             popupcreate.style.display = 'none';});
         </script>
-        <div class="main-content">
-            <!-- the cover photo -->
-            <div class="coverphoto">
-                <img src="<%= user.cover_pic %>" alt="cover">
-            </div>
-            <!-- the other profile information comes after the cover photo -->
-            <div class="profile">
+    <div class="main-content">
+        <div class="profile">
+            <div class="profile-header">
                 <div class="profile-photo">
                     <img src="<%= user.profile_pic %>" alt="Profile Photo">
                 </div>
-                <div class="profile-info">
+                <div class="profile-name">
                     <h1><%= user.username %></h1>
-                    <h3>Biography:</h3>
-                    <p><%= user.bio %></p>
                 </div>
-                <div class="profile-info">
+                <div class="profile-follow">
                     <h2><%= followers %> Followers</h2>
                 </div>
-                <div class="profile-info">
+                <div class="profile-follow">
                     <h2><%= following %> Following</h2>
                 </div>
             </div>
-            <!-- the posts of the user, a loop is used to display all the posts-->
-            <div class="posts">
-                <% for (let i = 0; i < posts.length; i++) { %>
-                <div class="post">
-                    <!-- post time -->
-                    <div class="post-header">
-                      <h2>Posted on <%= posts[i].post_time %></h2>
-                      <!-- dropdown button for editting and deleting the post -->
-                      <div style="z-index: 2;" class="dropdown">
-                        <button class="dropbtn">...</button>
-                        <div class="dropdown-content">
-                            <!-- Add the post_id to the "Edit" button -->
-                            <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
-                            <a>
-                                <form action="/profile/<%= user.user_id %>" method="POST">
-                                    <input type="hidden" id="method" name="method" value="DELETE">
-                                    <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                                    <button type="submit" value="Submit">Delete</button>
-                                </form>
-                            </a>
-                        </div>
-                      </div>
+            <div class="profile-bio">
+                <h3>Biography:</h3>
+                <p><%= user.bio %></p>
+            </div>
+        </div>
+        <!-- the posts of the user, a loop is used to display all the posts-->
+        <div class="posts">
+            <% for (let i = 0; i < posts.length; i++) { %>
+            <div class="post">
+                <!-- post time -->
+                <div class="post-header">
+                    <h2>Posted on <%= posts[i].post_time %></h2>
+                    <!-- dropdown button for editting and deleting the post -->
+                    <div style="z-index: 2;" class="dropdown">
+                    <button class="dropbtn">...</button>
+                    <div class="dropdown-content">
+                        <!-- Add the post_id to the "Edit" button -->
+                        <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
+                        <a>
+                            <form action="/profile/<%= id %>" method="POST">
+                                <input type="hidden" id="method" name="method" value="DELETE">
+                                <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
+                                <button type="submit" value="Submit">Delete</button>
+                            </form>
+                        </a>
                     </div>
-                    <!-- post contents -->
-                    <p><%= posts[i].post_des %></p>
-                    <!-- Update the id of the edit form to include the post_id -->
-                    <!-- comment box -->
-                    <div style="z-index: 1;" class="card">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Comments</h4>
-                        </div>
-                        <div class="comment-widgets">
-                            <!-- Comment Row -->
-                            <div class="d-flex flex-row comment-row">
-                                <div class="comment-text w-100">
-                                    <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
-                                </div>
-                            </div> <!-- Comment Row -->
-                            <div class="d-flex flex-row comment-row">
-                                <div class="comment-text active w-100">
-                                    <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
-                                    <div class="comment-footer"> </div>
-                                </div>
-                            </div> <!-- Comment Row -->
-                            <div class="d-flex flex-row comment-row">
-                                <div class="comment-text w-100">
-                                    <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
-                                    <div class="comment-footer"></div>
-                                </div>
-                            </div>
-                        </div> <!-- Card -->
-                        <div class="p-2 card-footer">
-                            <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
-                            <button id = "emoji-button" >&#128578;</button>
-                            <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
-                        </div>
-                    </div>
-                    <div style="z-index: 3;" class="popupeditpost">
-                        <button class="close-button" id="closeedit" style="border-radius: 100%;">&times;</button>
-                        <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
-                        <form id="edit-form-<%= posts[i].post_id %>" action="/profile/<%= user.user_id %>" method="POST">
-                            <br>
-                            <input type="hidden" name="method" value="PUT">
-                            <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                            <label for="content">Content:</label>
-                            <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." value="<%= posts[i].post_des %>" required></textarea>
-                            <br>
-                            <label for="hide_post">Hide post?</label>
-                            <input type="checkbox" id="hide_post" name="hide_post" value="<%= posts[i].hide_post %>">
-                            <br>
-                            <button type="submit" value="Submit">DONE</button>
-                        </form>
                     </div>
                 </div>
-                <% } %>
+                <!-- post contents -->
+                <p><%= posts[i].post_des %></p>
+                <!-- Update the id of the edit form to include the post_id -->
+                <!-- comment box -->
+                <div style="z-index: 1;" class="card">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Comments</h4>
+                    </div>
+                    <div class="comment-widgets">
+                        <!-- Comment Row -->
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                            </div>
+                        </div> <!-- Comment Row -->
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text active w-100">
+                                <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                                <div class="comment-footer"> </div>
+                            </div>
+                        </div> <!-- Comment Row -->
+                        <div class="d-flex flex-row comment-row">
+                            <div class="comment-text w-100">
+                                <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
+                                <div class="comment-footer"></div>
+                            </div>
+                        </div>
+                    </div> <!-- Card -->
+                    <div class="p-2 card-footer">
+                        <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                        <button id = "emoji-button" >&#128578;</button>
+                        <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                    </div>
+                </div>
+                <div style="z-index: 3;" class="popupeditpost">
+                    <button class="close-button" id="closeedit" style="border-radius: 100%;">&times;</button>
+                    <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
+                    <form id="edit-form-<%= posts[i].post_id %>" action="/profile/<%= user.user_id %>" method="POST">
+                        <br>
+                        <input type="hidden" name="method" value="PUT">
+                        <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
+                        <label for="content">Content:</label>
+                        <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." value="<%= posts[i].post_des %>" required></textarea>
+                        <br>
+                        <label for="hide_post">Hide post?</label>
+                        <input type="checkbox" id="hide_post" name="hide_post" value="<%= posts[i].hide_post %>">
+                        <br>
+                        <button type="submit" value="Submit">DONE</button>
+                    </form>
+                </div>
             </div>
+            <% } %>
         </div>
     </div>
     <!-- custom script for other logics -->
