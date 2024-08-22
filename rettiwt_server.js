@@ -186,21 +186,17 @@ app.post('/profile/:id(\\d+)', (req,res) => {
     const type = req.body.method
     const id = req.params.id
     if (type == 'POST') { // create new post feature
-        const {content, file, hide_post} = req.body
+        const {content, file} = req.body
         const time = new Date();
-        var hide = null
-        if (typeof hide_post !== 'undefined') {
-            hide = 1
-        }
 
         var sql
         var values
         if (typeof file !== 'undefined') {
-            sql = 'INSERT INTO Post (media, description, post_time, user_id, hide_post) VALUES (?, ?, ?, ?, ?);'
-            values = [file, content, time, id, hide];
+            sql = 'INSERT INTO Post (image_filename, description, post_time, user_id,) VALUES (?, ?, ?, ?);'
+            values = [file, content, time, id];
         } else {
-            sql = 'INSERT INTO Post (description, post_time, user_id, hide_post) VALUES (?, ?, ?, ?);'
-            values = [content, time, id, hide]
+            sql = 'INSERT INTO Post (description, post_time, user_id) VALUES (?, ?, ?);'
+            values = [content, time, id]
         }
 
         db.query(sql, values, function (err, result) {
@@ -209,23 +205,6 @@ app.post('/profile/:id(\\d+)', (req,res) => {
             return;
             }
             console.log('Inserted new entry to Post database');
-        });
-
-    } else if (type == 'PUT') { // edit post feature
-        const postID = req.body.postID
-        const {content, hide_post} = req.body
-        var hide = 'false'
-        if (typeof hide_post !== 'undefined') {
-            hide = 'true'
-        }
-        var sql= 'UPDATE Post SET description = ?, hide_post = ? WHERE post_id = ?';
-        var values = [content, hide_post, postID];
-        db.query(sql, values, function (err, result) {
-            if (err) {
-                console.log('[UPDATE ERROR] - ', err.message);
-                return;
-            }
-            console.log('Editted entry from Post database'); 
         });
     } else if (type == 'DELETE') { // Delete an existing post feature
         const postID = req.body.postID
@@ -240,6 +219,19 @@ app.post('/profile/:id(\\d+)', (req,res) => {
     }
     res.redirect('/profile/' + id)
 })
+
+// Endpoint to handle edit requests
+app.post('/api/posts/edit', (req, res) => {
+    const { id, description } = req.body;
+
+    const query = 'UPDATE posts SET description = ? WHERE id = ?';
+    db.query(query, [description, id], (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ message: 'Post updated successfully!', results });
+    });
+});
 
 // home page route
 app.get('/homepage/:id(\\d+)', (req, res) => {

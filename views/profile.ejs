@@ -28,14 +28,13 @@
         <iframe src="/chatroom.html" name=" chatbtn" style="border:none; position: fixed;
             right:15px;bottom: 15px;width:1000px;height: 600px;background-color: transparent; z-index: 5;"></iframe>
     </div> -->
-    <!-- Create a container for the sidebar and main content -->
-        <!-- Create a sidebar with a logo and links -->
+    <!-- Create a sidebar with a logo and links -->
     <div class="sidebar">
         <div class="logo">
             <img src="/logo.png" alt="Logo">
         </div>
         <ul>
-            <li><a class="createpostbtn" id="opencreatepage">New Post+</a></li>
+            <li><a onclick="openCreatePopup()">New Post+</a></li>
             <li><a href="/homepage/<%= id %>">Home</a></li>
             <li><a href="/search/<%= id %>">Search</a></li>
             <li><a href="#">My Profile</a></li>
@@ -44,13 +43,14 @@
         </ul>
     </div>
         <!-- Create a button for creating a new post -->
-        <div class="popupcreatepost" >
-            <button class="close-button" id = "closecreatepage" style="border-radius: 100%;">&times;</button>
+    <div id="createPopup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close" onclick="closeCreatePopup()">&times;</span>
             <h1>New Post</h1>
             <br>
             <form action="/profile/<%= id %>" method="POST">
                 <input type="hidden" id="method" name="method" value="POST">
-    
+
                 <label for="content">Content:</label>
                 <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." required></textarea>
                 <br>
@@ -63,16 +63,7 @@
                 <button type="submit" value="Submit">POST</button>
             </form>
         </div>
-        <!-- create post button logics -->
-        <script>const popupcreate = document.querySelector('.popupcreatepost');
-            const postcreatebtn = document.querySelector('#opencreatepage');
-            const closeModalButton = document.querySelector('#closecreatepage');
-            postcreatebtn.addEventListener('click', () => {
-            popupcreate.classList.toggle('show');
-            popupcreate.style.display = 'block';});
-            closeModalButton.addEventListener('click', () => {
-            popupcreate.style.display = 'none';});
-        </script>
+    </div>
     <div class="main-content">
         <div class="profile">
             <div class="profile-header">
@@ -98,27 +89,29 @@
         <div class="posts">
             <% for (let i = 0; i < posts.length; i++) { %>
             <div class="post">
-                <!-- post time -->
+                <!-- post content -->
                 <div class="post-header">
-                    <h2>Posted on <%= posts[i].post_time %></h2>
+                    <h2><%= posts[i].description %></h2>
                     <!-- dropdown button for editting and deleting the post -->
-                    <div style="z-index: 2;" class="dropdown">
-                    <button class="dropbtn">...</button>
-                    <div class="dropdown-content">
+                    <div class="dropdown">
+                        <button class="dropbtn">...</button>
+                        <div class="dropdown-content">
                         <!-- Add the post_id to the "Edit" button -->
-                        <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
-                        <a>
-                            <form action="/profile/<%= id %>" method="POST">
-                                <input type="hidden" id="method" name="method" value="DELETE">
-                                <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                                <button type="submit" value="Submit">Delete</button>
-                            </form>
-                        </a>
-                    </div>
+                            <!-- <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
+                            <a>
+                                <form action="/profile/<%= id %>" method="POST">
+                                    <input type="hidden" id="method" name="method" value="DELETE">
+                                    <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
+                                    <button type="submit" value="Submit">Delete</button>
+                                </form>
+                            </a> -->
+                            <a onclick="openEditPopup('<%= posts[i].id %>', '<%= posts[i].description %>')">Edit</a>
+                            <a onclick="confirmDelete('<%= posts[i].id %>')">Delete</a>
+                        </div>
                     </div>
                 </div>
-                <!-- post contents -->
-                <p><%= posts[i].post_des %></p>
+                <!-- post time -->
+                <p>posted on <%= posts[i].post_time %></p>
                 <!-- Update the id of the edit form to include the post_id -->
                 <!-- comment box -->
                 <div style="z-index: 1;" class="card">
@@ -151,27 +144,23 @@
                         <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
                     </div>
                 </div>
-                <div style="z-index: 3;" class="popupeditpost">
-                    <button class="close-button" id="closeedit" style="border-radius: 100%;">&times;</button>
-                    <h2>Edit post posted on <%= posts[i].post_time %>...</h2>
-                    <form id="edit-form-<%= posts[i].post_id %>" action="/profile/<%= user.user_id %>" method="POST">
-                        <br>
-                        <input type="hidden" name="method" value="PUT">
-                        <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                        <label for="content">Content:</label>
-                        <textarea id="content" name="content" rows="5" placeholder="Thoughts on your mind..." value="<%= posts[i].post_des %>" required></textarea>
-                        <br>
-                        <label for="hide_post">Hide post?</label>
-                        <input type="checkbox" id="hide_post" name="hide_post" value="<%= posts[i].hide_post %>">
-                        <br>
-                        <button type="submit" value="Submit">DONE</button>
-                    </form>
-                </div>
             </div>
             <% } %>
         </div>
+        <!-- popup edit post box -->
+        <div id="editPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <form>
+                    <span class="close" onclick="closeEditPopup()">&times;</span>
+                    <h2>Edit Post</h2>
+                    <textarea id="editDescription" rows="4"></textarea>
+                    <button onclick="saveEdit()">Save</button>
+                </form>
+            </div>
+        </div>
     </div>
     <!-- custom script for other logics -->
-    <script src="/profile.js"></script>
+    <script src="/createpost.js"></script>
+    <script src="/editdeletepost.js"></script>
 </body>
 </html>
