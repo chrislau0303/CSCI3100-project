@@ -88,7 +88,7 @@
         <!-- the posts of the user, a loop is used to display all the posts-->
         <div class="posts">
             <% for (let i = 0; i < posts.length; i++) { %>
-            <div class="post">
+            <div class="post" id="post-<%= posts[i].post_id %>">
                 <!-- post content -->
                 <div class="post-header">
                     <h2><%= posts[i].description %></h2>
@@ -96,17 +96,8 @@
                     <div class="dropdown">
                         <button class="dropbtn">...</button>
                         <div class="dropdown-content">
-                        <!-- Add the post_id to the "Edit" button -->
-                            <!-- <a class="popupeditbtn" data-post-id="<%= posts[i].post_id %>" data-post-des="<%= posts[i].post_des %>" data-hide-post="<%= posts[i].hide_post %>" id="edit-button-<%= posts[i].post_id %>">Edit</a>
-                            <a>
-                                <form action="/profile/<%= id %>" method="POST">
-                                    <input type="hidden" id="method" name="method" value="DELETE">
-                                    <input type="hidden" id="postID" name="postID" value="<%= posts[i].post_id %>">
-                                    <button type="submit" value="Submit">Delete</button>
-                                </form>
-                            </a> -->
-                            <a onclick="openEditPopup('<%= posts[i].id %>', '<%= posts[i].description %>')">Edit</a>
-                            <a onclick="confirmDelete('<%= posts[i].id %>')">Delete</a>
+                            <a onclick="openEditPopup('<%= posts[i].post_id %>', '<%= posts[i].description %>')">Edit</a>
+                            <a onclick="confirmDelete('<%= posts[i].post_id %>')">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -114,36 +105,39 @@
                 <p>posted on <%= posts[i].post_time %></p>
                 <!-- Update the id of the edit form to include the post_id -->
                 <!-- comment box -->
-                <div style="z-index: 1;" class="card">
+                <!-- <div style="z-index: 1;" class="card">
                     <div class="card-body text-center">
                         <h4 class="card-title">Comments</h4>
                     </div>
-                    <div class="comment-widgets">
+                    <div class="comment-widgets"> -->
                         <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row">
+                        <!-- <div class="d-flex flex-row comment-row">
                             <div class="comment-text w-100">
                                 <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
                             </div>
-                        </div> <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row">
+                        </div>  -->
+                        <!-- Comment Row -->
+                        <!-- <div class="d-flex flex-row comment-row">
                             <div class="comment-text active w-100">
                                 <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
                                 <div class="comment-footer"> </div>
                             </div>
-                        </div> <!-- Comment Row -->
-                        <div class="d-flex flex-row comment-row">
+                        </div>  -->
+                        <!-- Comment Row -->
+                        <!-- <div class="d-flex flex-row comment-row">
                             <div class="comment-text w-100">
                                 <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
                                 <div class="comment-footer"></div>
                             </div>
                         </div>
-                    </div> <!-- Card -->
-                    <div class="p-2 card-footer">
+                    </div>  -->
+                    <!-- Card -->
+                    <!-- <div class="p-2 card-footer">
                         <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
                         <button id = "emoji-button" >&#128578;</button>
                         <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <% } %>
         </div>

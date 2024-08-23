@@ -233,6 +233,21 @@ app.post('/api/posts/edit', (req, res) => {
     });
 });
 
+// Endpoint to handle delete requests
+app.delete('/api/posts/delete/:id', (req, res) => {
+    const postId = req.params.id;
+    // const postId = 0;
+
+    const query = 'DELETE FROM Post WHERE post_id = ?';
+    db.query(query, [postId], (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ message: 'Post deleted successfully!', results });
+    });
+});
+
+
 // home page route
 app.get('/homepage/:id(\\d+)', (req, res) => {
     const id = req.params.id

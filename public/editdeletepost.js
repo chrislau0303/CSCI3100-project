@@ -13,7 +13,7 @@ function saveEdit() {
     const newDescription = document.getElementById('editDescription').value;
     const postId = window.currentPostId;
     
-    fetch('/profile/id/editpost', {
+    fetch('/api/posts/edit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +38,10 @@ function confirmDelete(postId) {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            // Optionally, refresh the posts or remove the deleted post from the DOM
+            const postElement = document.getElementById(`post-${postId}`);
+            if (postElement) {
+                postElement.remove();
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
