@@ -72,6 +72,7 @@ body {
     align-items: center;
     padding: 20px;
     padding-top: 45px;
+    padding-bottom: 44px;
     position: sticky;
     top: 0;
     overflow: hidden;
@@ -293,6 +294,11 @@ body {
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
     background-color: #ddd;
+}
+
+.hidden {
+    opacity: 0; /* Make invisible */
+    pointer-events: none; /* Disable interactions */
 }
 
 /* Comment box */
