@@ -449,6 +449,7 @@ app.get('/settingpage/:id(\\d+)', (req, res) => {
         res.render('settingpage', {user})
     })
 })
+
 // setting page post request
 app.post('/settingpage/:id(\\d+)', (req, res) => {
     const id = req.params.id
