@@ -62,6 +62,7 @@ body {
 
 .main-content {
     margin: 25px;
+    margin-top: 0;
     margin-left: 25%;
     width: 75%;
 }
@@ -69,8 +70,8 @@ body {
 .profile {
     display: block;
     align-items: center;
-    /* margin: 20px; */
     padding: 20px;
+    padding-top: 45px;
     position: sticky;
     top: 0;
     overflow: hidden;
