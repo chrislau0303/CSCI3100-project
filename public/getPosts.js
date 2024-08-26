@@ -6,7 +6,7 @@ function getUserPosts(userId) {
     .then(posts => {
         const postsContainer = document.getElementById('postsContainer'); 
         postsContainer.innerHTML = ''; // Clear existing posts
-        console.log(posts[0])
+        console.log(posts)
         posts.forEach(post => {
             // Create and append new post elements
             const postElement = document.createElement('div');
@@ -18,7 +18,7 @@ function getUserPosts(userId) {
                     <div class="dropdown">
                         <button class="dropbtn">...</button>
                         <div class="dropdown-content">
-                            <a onclick="openEditPopup('${post.post_id}', '${post.description}')">Edit</a>
+                            <a onclick="openEditPopup('${post.userId}','${post.post_id}', '${post.description}')">Edit</a>
                             <a onclick="confirmDelete('${post.post_id}')">Delete</a>
                         </div>
                     </div>
