@@ -34,7 +34,7 @@
             <img src="/logo.png" alt="Logo">
         </div>
         <ul>
-            <li><a onclick="openCreatePopup()">New Post+</a></li>
+            <li><a onclick="openCreatePopup('<%= id %>')">New Post+</a></li>
             <li><a href="/homepage/<%= id %>">Home</a></li>
             <li><a href="/search/<%= id %>">Search</a></li>
             <li><a href="#">My Profile</a></li>
@@ -48,7 +48,7 @@
             <span class="close" onclick="closeCreatePopup()">&times;</span>
             <h1>New Post</h1>
             <br>
-            <form action="/profile/<%= id %>" method="POST">
+            <form id="createForm">
                 <input type="hidden" id="method" name="method" value="POST">
 
                 <label for="content">Content:</label>
@@ -60,7 +60,7 @@
                 <label for="hide_post">Hide post?</label>
                 <input type="checkbox" id="hide_post" name="hide_post" value="false">
                 <br>
-                <button type="submit" value="Submit">POST</button>
+                <button type="submit">POST</button>
             </form>
         </div>
     </div>
@@ -86,7 +86,7 @@
             </div>
         </div>
         <!-- the posts of the user, a loop is used to display all the posts-->
-        <div class="posts">
+        <div class="posts" id="postsContainer">
             <% for (let i = 0; i < posts.length; i++) { %>
             <div class="post" id="post-<%= posts[i].post_id %>">
                 <!-- post content -->
@@ -96,7 +96,7 @@
                     <div class="dropdown">
                         <button class="dropbtn">...</button>
                         <div class="dropdown-content">
-                            <a onclick="openEditPopup('<%= posts[i].post_id %>', '<%= posts[i].description %>')">Edit</a>
+                            <a onclick="openEditPopup('<%= id %>','<%= posts[i].post_id %>', '<%= posts[i].description %>')">Edit</a>
                             <a onclick="confirmDelete('<%= posts[i].post_id %>')">Delete</a>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                     <span class="close" onclick="closeEditPopup()">&times;</span>
                     <h2>Edit Post</h2>
                     <textarea id="editDescription" rows="4"></textarea>
-                    <button onclick="saveEdit()">Save</button>
+                    <button type="submit">Save</button>
                 </form>
             </div>
         </div>
@@ -156,5 +156,6 @@
     <!-- custom script for other logics -->
     <script src="/createpost.js"></script>
     <script src="/editdeletepost.js"></script>
+    <script src="/getPosts.js"></script>
 </body>
 </html>

@@ -36,26 +36,26 @@ submitbtn.addEventListener('click', () => {
 })
 
 // edit post button
-editbtn.forEach(btn => {
-  btn.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent the default click behavior
-    const postId = btn.dataset.postId;
-    const form = document.querySelector(`#edit-form-${postId}`);
-    const popupedit = form.closest('.popupeditpost'); // Get the parent popup element
-      // Set the value of the form fields using the post details
-      form.querySelector('#content').value = btn.dataset.postDes;
-      form.querySelector('#hide_post').checked = btn.dataset.hidePost === 'true';
-      form.querySelector('#postID').value = postId;
+// editbtn.forEach(btn => {
+//   btn.addEventListener('click', (event) => {
+//     event.preventDefault(); // Prevent the default click behavior
+//     const postId = btn.dataset.postId;
+//     const form = document.querySelector(`#edit-form-${postId}`);
+//     const popupedit = form.closest('.popupeditpost'); // Get the parent popup element
+//       // Set the value of the form fields using the post details
+//       form.querySelector('#content').value = btn.dataset.postDes;
+//       form.querySelector('#hide_post').checked = btn.dataset.hidePost === 'true';
+//       form.querySelector('#postID').value = postId;
       
-      popupedit.classList.toggle('show');
-      popupedit.style.display = 'block';
-  });
-});
+//       popupedit.classList.toggle('show');
+//       popupedit.style.display = 'block';
+//   });
+// });
 
 // close edit button
-closeeditbtn.forEach(button => {
-  button.addEventListener('click', () => {
-    const popupedit = button.closest('.popupeditpost');
-    popupedit.style.display = 'none';
-  });
-});
+// closeeditbtn.forEach(button => {
+//   button.addEventListener('click', () => {
+//     const popupedit = button.closest('.popupeditpost');
+//     popupedit.style.display = 'none';
+//   });
+// });

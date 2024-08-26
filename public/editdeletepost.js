@@ -1,7 +1,8 @@
-function openEditPopup(postId, description) {
+function openEditPopup(userId, postId, description) {
     document.getElementById('editPopup').style.display = 'flex';
     document.getElementById('editDescription').value = description;
     // Store postId for saving later
+    window.currentUserId = userId;
     window.currentPostId = postId;
 }
 
@@ -11,8 +12,9 @@ function closeEditPopup() {
 
 function saveEdit() {
     const newDescription = document.getElementById('editDescription').value;
+    const userId = window.currentUserId;
     const postId = window.currentPostId;
-    
+
     fetch('/api/posts/edit', {
         method: 'POST',
         headers: {
@@ -24,6 +26,7 @@ function saveEdit() {
     .then(data => {
         console.log('Success:', data);
         closeEditPopup(); // Close the popup on success
+        getUserPosts(userId); // Refresh the posts
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -48,3 +51,8 @@ function confirmDelete(postId) {
         });
     }
 }
+
+document.getElementById('editPopup').addEventListener('submit', function(event) {
+    event.preventDefault();
+    saveEdit();
+});
