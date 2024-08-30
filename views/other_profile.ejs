@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Profile Page</title>
     <link rel="stylesheet" href="/styles_other_profile.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.3/iconfont/material-icons.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -13,131 +13,128 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/styles_post.css">
+    <link rel="stylesheet" href="/styles_post.css"> -->
 </head>
 <body>
     <!-- <div>
         <iframe src="/chatroom.html" name=" chatbtn" style="border:none; position: fixed;
             right:15px;bottom: 15px;width:1000px;height: 600px;background-color: transparent;"></iframe>
     </div> -->
-    <!-- Create a container for the sidebar and main content -->
-    <div class="container" id = "containerid">
-         <!-- Create a sidebar with a logo and links -->
-        <div class="sidebar">
-            <div class="logo">
-                <img src="/logo.png" alt="Logo">
-            </div>
-            <ul>
-                <li><a href="/homepage/<%= id %>">Home</a></li>
-                <li><a href="/search/<%= id %>">Search</a></li>
-                <li><a href="/profile/<%= id %>">My Profile</a></li>
-                <li><a href="/settingpage/<%= id %>">Settings</a></li>
-                <li><a href="/login">Sign out</a></li>
-            </ul>
+    <!-- Create a sidebar with a logo and links -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/logo.png" alt="Logo">
         </div>
-        <div class="main-content">
-            <!-- the cover photo -->
-            <div class="coverphoto">
-                <img src="<%= targetuser.cover_pic %>" alt="cover">
-            </div>
-            <!-- the other profile information comes after the cover photo -->
-            <div class="profile">
+        <ul>
+            <li><a href="/homepage/<%= id %>">Home</a></li>
+            <li><a href="/search/<%= id %>">Search</a></li>
+            <li><a href="/profile/<%= id %>">My Profile</a></li>
+            <li><a href="/settingpage/<%= id %>">Settings</a></li>
+            <li><a href="/login">Sign out</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <!-- the other profile information comes after the cover photo -->
+        <div class="profile">
+            <div class="profile-header">
                 <div class="profile-photo">
                     <img src="<%= targetuser.profile_pic %>" alt="Profile Photo">
                 </div>
-                <div class="profile-info">
+                <div class="profile-name">
                     <h1><%= targetuser.username %></h1>
-                    <h3>Biography:</h3>
-                    <p><%= targetuser.bio %></p>
                 </div>
-                <div class="profile-info">
+                <div class="profile-follow">
                     <h2 id="follower"><%= followers %> Followers</h2>
                 </div>
-                <div class="profile-info">
+                <div class="profile-follow">
                     <h2 id="following"><%= following %> Following</h2>
                 </div>
-                   
-                <!-- follow button -->
-                <form id="update-follow">
-                    <% if (follow) { %>
-                    <button type="submit" id="unfollow" class="follow-button" value="unfollow">Followed</button>
-                    <% } else { %>
-                    <button type="submit" id="follow" class="follow-button" value="follow">Follow</button>
-                    <% }%>
-                    <script>
-                    follow_btn = document.querySelector(".follow-button");
-                    
-                    follow_btn.onclick = function() {
-                        if(this.innerHTML == "Followed"){
-                            this.innerHTML = "<div class='loader'></div>" ;
-                            setTimeout(() => {
-                                this.innerHTML = "Follow";
-                                this.value = "follow"
-                            },500);
-                        }
-                        else { this.innerHTML = "<div class='loader'></div>" ;
-                            setTimeout(() => {
-                                this.innerHTML = "Followed";
-                                this.value = "unfollow"
-                            },500);
-                        }
-                    }
-                    </script>
-                </form>
             </div>
-            <!-- the posts of the user, a loop is used to display all the posts-->
-            <div class="posts">
-                <% for (let i = 0; i < posts.length; i++) { %>
-                <div class="post">
-                    <!-- post time -->
-                    <div class="post-header">
-                        <h2>Posted on <%= posts[i].post_time %></h2>
-                    </div>
-                    <!-- post contents -->
-                    <p><%= posts[i].post_des %></p>
-                    <!-- like button and comment area -->
-                    <div class="post-footer">               
-                        <div class="heart-btn">
-                            <div class="content" id="<%=posts[i].post_id%>">
-                                <input type="hidden" id="input<%=posts[i].post_id%>" value="<%=liked[i]%>">
-                                <span class="heart"></span>
-                                <span class="numb"><%= likes[i] %></span>
-                            </div>
+            <div class="profile-bio">
+                <h3>Biography:</h3>
+                <p><%= targetuser.bio %></p>
+            </div>
+                
+            <!-- follow button -->
+            <form id="update-follow">
+                <% if (follow) { %>
+                <button type="submit" id="unfollow" class="follow-button" value="unfollow">Followed</button>
+                <% } else { %>
+                <button type="submit" id="follow" class="follow-button" value="follow">Follow</button>
+                <% }%>
+                <script>
+                follow_btn = document.querySelector(".follow-button");
+                
+                follow_btn.onclick = function() {
+                    if(this.innerHTML == "Followed"){
+                        this.innerHTML = "<div class='loader'></div>" ;
+                        setTimeout(() => {
+                            this.innerHTML = "Follow";
+                            this.value = "follow"
+                        },500);
+                    }
+                    else { this.innerHTML = "<div class='loader'></div>" ;
+                        setTimeout(() => {
+                            this.innerHTML = "Followed";
+                            this.value = "unfollow"
+                        },500);
+                    }
+                }
+                </script>
+            </form>
+        </div>
+        <!-- the posts of the user, a loop is used to display all the posts-->
+        <div class="posts">
+            <% for (let i = 0; i < posts.length; i++) { %>
+            <div class="post">
+                <!-- post time -->
+                <div class="post-header">
+                    <h2>Posted on <%= posts[i].post_time %></h2>
+                </div>
+                <!-- post contents -->
+                <p><%= posts[i].post_des %></p>
+                <!-- like button and comment area -->
+                <div class="post-footer">               
+                    <div class="heart-btn">
+                        <div class="content" id="<%=posts[i].post_id%>">
+                            <input type="hidden" id="input<%=posts[i].post_id%>" value="<%=liked[i]%>">
+                            <span class="heart"></span>
+                            <span class="numb"><%= likes[i] %></span>
                         </div>
-                        <div style="z-index: 1;" class="card">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">Comments</h4>
-                            </div>
-                            <div class="comment-widgets">
-                                <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
-                                    </div>
-                                </div> <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="comment-text active w-100">
-                                        <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
-                                        <div class="comment-footer"> </div>
-                                    </div>
-                                </div> <!-- Comment Row -->
-                                <div class="d-flex flex-row comment-row">
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
-                                        <div class="comment-footer"></div>
-                                    </div>
+                    </div>
+                    <div style="z-index: 1;" class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Comments</h4>
+                        </div>
+                        <div class="comment-widgets">
+                            <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row">
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
                                 </div>
-                            </div> <!-- Card -->
-                            <div class="p-2 card-footer">
-                                <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
-                                <button id = "emoji-button" >&#128578;</button>
-                                <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                            </div> <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row">
+                                <div class="comment-text active w-100">
+                                    <h6 class="font-medium">Michael Hussey</h6> <span class="m-b-15 d-block">Thanks bbbootstrap.com for providing such useful snippets. </span>
+                                    <div class="comment-footer"> </div>
+                                </div>
+                            </div> <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row">
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium">Johnathan Doeting</h6> <span class="m-b-15 d-block">Great industry leaders are not the real heroes of stock market. </span>
+                                    <div class="comment-footer"></div>
+                                </div>
                             </div>
+                        </div> <!-- Card -->
+                        <div class="p-2 card-footer">
+                            <div class="d-flex flex-row align-items-start"><textarea class="form-control ml-1 shadow-none textarea" placeholder="Comment here..."></textarea></div>
+                            <button id = "emoji-button" >&#128578;</button>
+                            <div class="mt-2 text-right"><button id = "submit" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
                         </div>
                     </div>
                 </div>
-                <% } %>
             </div>
+            <% } %>
         </div>
     </div>
     <!-- follow button logics -->

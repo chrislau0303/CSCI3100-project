@@ -294,7 +294,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                 });
                 var follow = false
                 var followers = 0
-                var sql = 'SELECT * FROM Following WHERE user_id = ?'
+                var sql = 'SELECT * FROM Following WHERE following_user_id = ?'
                 db.query(sql, targetid, function (err, result) {
                     if (err) {
                         console.log('[SELECT ERROR] - ', err.message)
@@ -308,7 +308,7 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                         }
                     }
                     var following = 0
-                    var sql = 'SELECT * FROM Following WHERE follower_id = ?'
+                    var sql = 'SELECT * FROM Following WHERE user_id = ?'
                     db.query(sql, targetid, function (err, result) {
                         if (err) {
                             console.log('[SELECT ERROR] - ', err.message)
@@ -318,10 +318,10 @@ app.get('/other_profile/:targetid(\\d+)/:id(\\d+)', (req,res) => {
                         var likes = []
                         var liked = []
                         for (let i = 0; i < posts.length; i++) {
-                            var sql = 'SELECT * FROM likes WHERE post_id = ?'
+                            var sql = 'SELECT * FROM Likes WHERE post_id = ?'
                             db.query(sql, posts[i].post_id, function (err, result) {
                                 if (err) {
-                                    console,log('[SELECT ERROR] - ', err.message)
+                                    console.log('[SELECT ERROR] - ', err.message)
                                     return
                                 }
                                 likes.push(result.length)
@@ -353,8 +353,8 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
     const id = req.params.id
 
     if (follow == 'follow') {
-        var sql = 'INSERT INTO followers(user_id,follower_id) VALUES(?,?)';
-        var values = [targetid, id]; 
+        var sql = 'INSERT INTO Following(user_id,following_user_id) VALUES(?,?)';
+        var values = [id, targetid]; 
         db.query(sql, values, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -362,7 +362,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
             }
         });
     } else if (follow == 'unfollow') {
-        var sql = 'DELETE FROM Following WHERE user_id = ? AND follower_id = ?';
+        var sql = 'DELETE FROM Following WHERE following_user_id = ? AND user_id = ?';
         var values = [targetid, id]
         db.query(sql, values, function (err, result) { 
             if (err) {
@@ -373,7 +373,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
     }
 
     var followers = 0
-    var sql = 'SELECT * FROM Following WHERE user_id = ?'
+    var sql = 'SELECT * FROM Following WHERE following_user_id = ?'
     db.query(sql, targetid, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message)
@@ -381,7 +381,7 @@ app.post('/update-follow/:targetid(\\d+)/:id(\\d+)', (req, res) => {
         }
         followers = result.length
         var following = 0
-        var sql = 'SELECT * FROM Following WHERE follower_id = ?'
+        var sql = 'SELECT * FROM Following WHERE user_id = ?'
         db.query(sql, targetid, function (err, result) {
             if (err) {
                 console.log('[SELECT ERROR] - ', err.message)
@@ -401,7 +401,7 @@ app.post('/update-like/:id(\\d+)', (req, res) => {
     const id = req.params.id
 
     if (action == 'like') {
-        var sql = 'INSERT INTO likes (post_id,follower_id) VALUES (?,?)'
+        var sql = 'INSERT INTO Likes (post_id,user_id) VALUES (?,?)'
         var values = [post_id, id]
         db.query(sql, values, function (err, result) {
             if (err) {
@@ -411,7 +411,7 @@ app.post('/update-like/:id(\\d+)', (req, res) => {
             console.log('user liked a post')
         })
     } else if (action == 'unlike') {
-        var sql = 'DELETE FROM likes WHERE post_id = ? AND follower_id = ?'
+        var sql = 'DELETE FROM Likes WHERE post_id = ? AND user_id = ?'
         var values = [post_id, id]
         db.query(sql, values, function (err, result) {
             if (err) {
@@ -422,7 +422,7 @@ app.post('/update-like/:id(\\d+)', (req, res) => {
         })
     }
 
-    var sql = 'SELECT * FROM likes WHERE post_id = ?'
+    var sql = 'SELECT * FROM Likes WHERE post_id = ?'
     db.query(sql, post_id, function (err, result) {
         if (err) {
             console.log('[SELECT ERROR] - ', err.message)

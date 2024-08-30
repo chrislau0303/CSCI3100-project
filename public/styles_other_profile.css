@@ -1,85 +1,30 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
-    background-attachment: scroll;
-    background-clip: border-box;
-    background-image: none;
-    background-origin: padding-box;
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-size: auto;
-    box-sizing: border-box;
-    color: #15202b;
     display: flex;
     justify-content: center;
     line-height: 24px;
+    max-height: 100vh;
+    min-width: 100vw;
     margin: 0;
-    text-align: left;
-    align-items: center;
-}
-
-.container {
-    left: 0px;
-    border-radius: 20px;
-    display: flex;
-    box-sizing: border-box;
-    line-height: 24px;
-    margin-bottom: 20px;
-    margin-left: 92px;
-    margin-right: 92px;
-    margin-top: 20px;
-    max-width: 1140px;
-    padding-bottom: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 30px;
-    text-align: left;
 }
 
 .sidebar {
-    position: sticky;
-    top: 0;
+    position: fixed;
+    left: 0;
     height:100%;
-    width: 20%;
-    margin-right: 50px;
+    width: 15%;
+    margin: 5%;
     max-width: 200px;
+    min-width: 100px;
     box-sizing: border-box;
-    display: block;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.main-content {
-    flex: 1;
-    max-height: 700px;
-    width: 80%;
-}
-
-.coverphoto {
-   
-    top:20px;
-    padding: 20px;
-    color: gray;
-    max-width: 1000px;
-    
-}
-.coverphoto img{
-    width: 80% ;
-    border-radius:10px;
-    margin-bottom: 20px ;
-    position: relative;
-    left:100px;
-    z-index: -1;
-
-
 }
 
 .logo {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    margin: 10px;
+    overflow: hidden;
 }
 
 .logo img {
@@ -92,12 +37,10 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    left : 0px;
-    right: 20px;
 }
 
 .sidebar li {
-    margin-bottom: 10px;
+    margin: 5px;
 }
 
 .sidebar a ,a#opencreatepage.createpostbtn{
@@ -110,26 +53,44 @@ body {
     text-decoration: none;
 }
 
-.sidebar a:hover {
+.sidebar a:hover , a#opencreatepage:hover{
     background-color: #0c84d2;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .main-content {
-    flex: 1;
+    margin: 25px;
+    margin-top: 0;
+    margin-left: 25%;
+    width: 75%;
 }
 
 .profile {
-    display: flex;
+    display: block;
     align-items: center;
-    margin-bottom: 30px;
+    padding: 20px;
+    padding-top: 45px;
+    padding-bottom: 44px;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+.profile-header {
+    display: flex;
 }
 
 .profile-photo {
-    width: 100px;
-    height: 100px;
+    width: 10vw;
+    height: 10vw;
+    min-width: 50px;
+    min-height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    margin-right: 20px;
+    margin: 2.5%;
 }
 
 .profile-photo img {
@@ -138,32 +99,34 @@ body {
     object-fit: cover;
 }
 
-.profile-info h1 {
-    font-size: 36px;
-    margin: 0;
+.profile-name {
+    display: flex;
+    justify-content: left;
+    align-items: center; 
+    font-size: 1.5vw;
+    overflow-wrap: break-word;
+    width: calc(85% / 3);
 }
 
-.profile-info h2 {
-    font-size: 24px;
-    margin-left: 80px;
+.profile-follow {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    font-size: 1.2vw;
+    overflow-wrap: break-word;
+    width: calc(85% / 3);
 }
 
-.profile-info h3 {
-    font-size: 16px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.profile-info p {
-    font-size: 14px;
-    margin: 0;
+.profile-bio {
+    font-size: 1vw;
 }
 
 .posts {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 30px;
-    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2%;
+    align-items: start;
 }
 
 .post {
@@ -397,7 +360,7 @@ body {
 }
 
 /* Comment box */
-body{background: #eee}
+/* body{background: #eee}
 .date{font-size: 11px}
 .comment-text{font-size: 12px}
 .fs-12{font-size: 12px}
@@ -405,12 +368,12 @@ body{background: #eee}
 .name{color: #007bff}
 .cursor:hover{color: blue}
 .cursor{cursor: pointer}
-.textarea{resize: none}
+.textarea{resize: none} */
 
-@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+/* @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 body{background-color: #D32F2F;font-family: 'Calibri', sans-serif !important}
 .mt-100{margin-top: 100px}
-.mb-100{margin-bottom:100px}
+.mb-100{margin-bottom:100px} */
 .card{
     position: relative;
     z-index: 1;

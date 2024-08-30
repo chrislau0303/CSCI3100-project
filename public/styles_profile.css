@@ -312,10 +312,10 @@ body {
 .cursor{cursor: pointer}
 .textarea{resize: none} */
 
-@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+/* @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700); */
 /* body{background-color: #D32F2F;font-family: 'Calibri', sans-serif !important} */
-.mt-100{margin-top: 100px}
-.mb-100{margin-bottom:100px}
+/* .mt-100{margin-top: 100px}
+.mb-100{margin-bottom:100px} */
 .card{
     position: relative;
     z-index: 1;
